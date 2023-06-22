@@ -1,2 +1,32 @@
 # legionbot-open
  Legionbot versão open
+
+- [ ] Handler msgs
+- [ ] Handler Reacts
+- [ ] Comandos Normais
+- [ ] Gerencia + gerenciar-grupo
+- [ ] Filtros
+- [ ] Atencao/Ignorar
+- [ ] Stickers
+- [ ] Roleta
+- [ ] Custom Requests (SiPt + Aviao)
+- [ ] Twitch
+- [ ] Youtube
+- [ ] GPT 
+- [ ] Lembretes
+- [ ] JrMuNews
+- [ ] Roubar
+- [ ] Fechar/Abrir grupo
+- [ ] Clima
+- [ ] Google
+- [ ] Wiki
+- [ ] TTS
+- [ ] Deletar
+- [ ] ELOs
+- [ ] Instagram
+- [ ] Tiktok
+- [ ] Download
+- [ ] Listas
+- [ ] Gifs Tutorial
+- [ ] NSFW Horários específicos
+- [ ] !add contato em grupo
