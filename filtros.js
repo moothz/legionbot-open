@@ -15,10 +15,14 @@ function ignorarMsg(dados){
 		let ignorar = false;
 		let motivo;
 
+		if(dados.msg.fromMe){
+			ignorar = true;
+		}
+
 		if(ignorar){
-			resolve(dados);
-		} else {
 			reject(`[ignorarMsg] ${motivo}`);
+		} else {
+			resolve(dados);
 		}
 	});
 }

@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "mime-types": "^2.1.35",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.21.0",
+    "winston": "^3.9.0",
+    "winston-daily-rotate-file": "^4.7.1"
+  }
+}

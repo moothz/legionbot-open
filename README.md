@@ -1,13 +1,13 @@
 # legionbot-open
- Legionbot versão open
+ Legionbot versão open, primeiro push, preciso ir pra casa
 
-- [ ] Handler msgs
+- [X] Handler msgs
 - [ ] Handler Reacts
 - [ ] Comandos Normais
 - [ ] Gerencia + gerenciar-grupo
 - [ ] Filtros
 - [ ] Atencao/Ignorar
-- [ ] Stickers
+- [X] Stickers
 - [ ] Roleta
 - [ ] Custom Requests (SiPt + Aviao)
 - [ ] Twitch
@@ -30,3 +30,7 @@
 - [ ] Gifs Tutorial
 - [ ] NSFW Horários específicos
 - [ ] !add contato em grupo
+
+```
+npm i whatsapp-web.js mime-types winston winston-daily-rotate-file
+```
