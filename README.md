@@ -85,7 +85,7 @@ $ sudo apt install -y nodejs
     Acesse o site oficial do [nodejs](https://nodejs.org/), baixe e instale a versão LTS.
 
 ### ffmpeg
-Acesse o site oficial do [ffmpeg](https://ffmpeg.org/download.html) e faça o download dos executáveis. Coloque em uma pasta que você saiba o caminh, pois vai precisar configurar o mesmo no `configs.js`.
+Acesse o site oficial do [ffmpeg](https://ffmpeg.org/download.html) e faça o download dos executáveis. Coloque em uma pasta que você saiba o caminho, pois vai precisar configurar o mesmo no `configs.js`.
 
 ### python3 & rembg
 
