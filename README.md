@@ -82,7 +82,10 @@ $ curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 $ sudo apt install -y nodejs
 ```
 2. **Windows**:
-    >Acesse o site oficial do [nodejs](https://nodejs.org/), baixe e instale a versão LTS. O
+    Acesse o site oficial do [nodejs](https://nodejs.org/), baixe e instale a versão LTS.
+
+### ffmpeg
+Acesse o site oficial do [ffmpeg](https://ffmpeg.org/download.html) e faça o download dos executáveis. Coloque em uma pasta que você saiba o caminh, pois vai precisar configurar o mesmo no `configs.js`.
 
 ### python3 & rembg
 
@@ -94,7 +97,8 @@ O bot utiliza a ferramenta **rembg** para remover fundo das imagens, que foi esc
 ```sh
     pip install rembg[cli]
 ```
-    > (Você também pode usar o poder da placa de vídeo do servidor, se for possível. Visite o repositório oficial do [rembg](https://github.com/danielgatis/rembg)) para mais informações.
+Você também pode usar o poder da placa de vídeo do servidor, se for possível. Visite o repositório oficial do [rembg](https://github.com/danielgatis/rembg) para mais informações.
+
 3. Descubra onde está o executável do *rembg*
     - No windows, digite em um novo terminal: `where rembg`
     - No linux, digite em um novo terminal: `which rembg`
@@ -110,15 +114,15 @@ O legionbot usa os seguintes pacotes:
 - [winston-daily-rotate-file](https://github.com/winstonjs/winston-daily-rotate-file): Extensão do gerenciador de logs para orgaização
 - [mime-types](https://github.com/jshttp/mime-types): Identificar extensão e tipo de arquivos
 
-Navegue até o diretório onde estão os arquivos do bot e instale os pacotes necessários utilizando:
+1. Navegue até o diretório onde estão os arquivos do bot e instale os pacotes necessários utilizando:
 
 ```sh
 npm install
 ```
-
-Agora execute o bot usando:
+2. Abra o arquivo `configs.js` com seu editor de preferência e edite as variáveis conforme especificado
+3. Agora execute o bot usando:
 ```sh
 node index.js
 ```
 
-Escaneie o qr-code e *voilá*, só alegria!
+4. Escaneie o qr-code e *voilá*, só alegria!
