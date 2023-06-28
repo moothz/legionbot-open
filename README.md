@@ -10,6 +10,7 @@ Estas são funções que o legionbot já faz (ou pretendo fazer), mas que precis
 - [ ] Handlers básicos
     - [X] Handler msgs
     - [ ] Handler Reacts
+    - [ ] Reescrever o `wrappers-bot.js`
     - [ ] Handler Comandos Normais
 
 - [ ] Gerencia
