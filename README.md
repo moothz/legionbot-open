@@ -6,36 +6,59 @@ Criei o bot pra aprender os detalhes de usar *javascript* com *nodejs*, então o
 
 ## Checklist de coisas pra implementar
 
-Estas são funções que o legionbot já faz, mas que preciso reescrever e adaptar nesta versão.
-- [X] Handler msgs
-- [ ] Handler Reacts
-- [ ] Comandos Normais
-- [ ] Gerencia + gerenciar-grupo
-- [ ] Filtros
-- [ ] Atencao/Ignorar
-- [X] Stickers
-- [ ] Roleta
-- [ ] Custom Requests (SiPt + Aviao)
-- [ ] Twitch
-- [ ] Youtube
-- [ ] GPT 
-- [ ] Lembretes
-- [ ] JrMuNews
-- [ ] Roubar
-- [ ] Fechar/Abrir grupo
-- [ ] Clima
-- [ ] Google
-- [ ] Wiki
-- [ ] TTS
-- [ ] Deletar
-- [ ] ELOs
-- [ ] Instagram
-- [ ] Tiktok
-- [ ] Download
-- [ ] Listas
-- [ ] Gifs Tutorial
-- [ ] NSFW Horários específicos
-- [ ] !add contato em grupo
+Estas são funções que o legionbot já faz (ou pretendo fazer), mas que preciso reescrever e adaptar nesta versão.
+- [ ] Handlers básicos
+    - [X] Handler msgs
+    - [ ] Handler Reacts
+    - [ ] Handler Comandos Normais
+
+- [ ] Gerencia
+    - [ ] Preferências do grupo
+    - [ ] CRUD comandos
+
+- [ ] Filtros de Mensagens  
+    - [X] Mensagens do bot
+    - [ ] Travazaps
+    - [ ] Mensagens NSFW
+    - [ ] Links
+    - [ ] Palavras pré-definidas
+
+- [ ] Comandos Fixos
+    - [X] Stickers
+        - [X] Stickers normais
+        - [X] Stickers sem fundo
+        - [ ] Transformar sticker em foto/vídeo/arquivo
+    - [ ] !atenção
+    - [ ] Roleta
+    - [ ] GPT 
+    - [ ] JrMuNews
+    - [ ] Horóscopo
+    - [ ] Lembretes
+    - [ ] Roubar
+    - [ ] Clima
+    - [ ] Google
+    - [ ] Wikipedia
+    - [ ] Text-to-Speech
+    - [ ] Speech-to-Text
+    - [ ] Deletar
+    - [ ] ELOs LoL e Valorant
+    - [ ] Baixar Instagram
+    - [ ] Baixar do Tiktok
+    - [ ] Listas
+    - [ ] Fechar/Abrir grupo
+    - [ ] Custom Requests
+        - [ ] InstaSiPt
+        - [ ] RAB aviões
+
+- [ ] Notificação de Live e Vídeos
+    - [ ] Twitch
+    - [ ] Youtube
+    - [ ] Kick (sem API por enquanto)
+
+- [ ] Projetos Futuros
+    - [ ] Tutoriais em GIF
+    - [ ] NSFW Horários específicos
+    - [ ] !add contato em grupo
 
 
 ## Como eu faço pra rodar?
@@ -68,11 +91,13 @@ O bot utiliza a ferramenta **rembg** para remover fundo das imagens, que foi esc
 1. Instale o python3
     >https://www.python.org/downloads/
 2. Em um termimal, execute:
-    > pip install rembg[cli]
+```sh
+    pip install rembg[cli]
+```
     > (Você também pode usar o poder da placa de vídeo do servidor, se for possível. Visite o repositório oficial do [rembg](https://github.com/danielgatis/rembg)) para mais informações.
 3. Descubra onde está o executável do *rembg*
-    > No windows, digite em um novo terminal: where rembg
-    > No linux, digite em um novo terminal: which rembg
+    - No windows, digite em um novo terminal: `where rembg`
+    - No linux, digite em um novo terminal: `which rembg`
     Isso retornará o caminho completo do executável (script) do *rembg*, copie e guarde este valor para colar no arquivo `configs.js`
 
 ### legionbot
@@ -87,12 +112,12 @@ O legionbot usa os seguintes pacotes:
 
 Navegue até o diretório onde estão os arquivos do bot e instale os pacotes necessários utilizando:
 
-```
+```sh
 npm install
 ```
 
 Agora execute o bot usando:
-```
+```sh
 node index.js
 ```
 
