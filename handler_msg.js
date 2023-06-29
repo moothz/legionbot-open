@@ -1,6 +1,6 @@
 const { loggerInfo, loggerWarn } = require("./logger");
 const { filtrarMsg, ignorarMsg } = require("./filtros");
-const { stickersHandler, stickersBgHandler } =  require("./stickers");
+const { stickersHandler, stickersBgHandler } =	require("./stickers");
 const { removebgHandler } = require("./imagens")
 const { getGroupNameByNumeroGrupo, isSuperAdmin } = require("./db");
 const { isUserAdmin } = require("./auxiliares");
@@ -18,7 +18,7 @@ const { dispatchMessages, reagirMsg, removerPessoasGrupo, adicionarPessoasGrupo,
 		isSticker: bool -> Enviar a MessageMedia como sticker
 		isGif: bool -> Enviar a MessageMedia como gif
 		isAudio: bool -> Enviar a MessageMedia como voice
-		isFile:  bool -> Enviar a MessageMedia como arquivo
+		isFile:	bool -> Enviar a MessageMedia como arquivo
 		replyCustomMsg: string -> id da mensagem para usar como reply
 		reply: bool -> Usar reply ou não (enviar msg solta)
 		legenda: String -> Legenda para Fotos, vídeos e GIFs
@@ -36,48 +36,77 @@ const { dispatchMessages, reagirMsg, removerPessoasGrupo, adicionarPessoasGrupo,
 const handlers = [
 	{
 		startStrings: ["!"], // Comando precisa COMEÇAR com alguma dessas strings
-		containString: ["comandos","cmd"], // Comando precisa conter alguma dessas palavras
+		containStrings: ["comandos","cmd"], // Comando precisa conter alguma dessas palavras
 		endStrings: [], // Comando precisa TERMINAR com alguma dessas strings
 		handler: false, // Função que será chamada para processar os dados
 		needsMedia: false, // Precisa vir mídia NA MENSAGEM que tem o comando
+		apenasTextoCompleto: false, // Se true, a mensagem precisa ser EXATAMENTE igual ao comando, se não, precisa apenas conter
+		apenasPalavaInteira: true, // Se true, apenas considera palavra inteira, por exemplo, se true, o comando !s não ativaria com !super
+		apenasInicio: true, // Se true, só considera que o comando estiver no começo da mensagem
 		adminOnly: false, // Comando é apenas para administradores do grupo?
 		superAdminOnly: false // Comando é apenas para SUPER administradores? (definidos no configs.js)
+	},
+
+	// Youtube
+	{
+		startStrings: ["!"],
+		containStrings: ["sr", "songrequest"],
+		endStrings: [],
+		handler: () => { console.log("SR"); },
+		needsMedia: false,
+		apenasTextoCompleto: false,
+		apenasPalavaInteira: true,
+		apenasInicio: true,
+		adminOnly: false,
+		superAdminOnly: false
 	},
 
 	// Figurinhas
 	{
 		startStrings: ["!"],
-		containString: ["s", "stk", "sticker","stiker", "stricker","figurinha"],
+		containStrings: ["s", "stk", "sticker","stiker", "stricker","figurinha"],
 		endStrings: ["bg"],
 		handler: stickersBgHandler,
 		needsMedia: false,
+		apenasTextoCompleto: true,
+		apenasPalavaInteira: true,
+		apenasInicio: true,
 		adminOnly: false,
 		superAdminOnly: false
 	},
 	{
 		startStrings: ["!"],
-		containString: ["s", "stk", "sticker","stiker", "stricker","figurinha"],
+		containStrings: ["s", "stk", "sticker","stiker", "stricker","figurinha"],
 		endStrings: [],
 		handler: stickersHandler,
 		needsMedia: false,
+		apenasTextoCompleto: true,
+		apenasPalavaInteira: true,
+		apenasInicio: true,
 		adminOnly: false,
 		superAdminOnly: false
 	},
 	{
 		startStrings: [],
-		containString: ["!sbg", "!stbg", "!stkbg", "stickerbg", "strickerbg", "stikerbg","figurinhabg"],
+		containStrings: ["!sbg", "!stbg", "!stkbg", "stickerbg", "strickerbg", "stikerbg","figurinhabg"],
 		endStrings: [],
 		handler: stickersBgHandler,
 		needsMedia: true,
+		apenasTextoCompleto: true,
+		apenasPalavaInteira: true,
+		apenasInicio: true,
 		adminOnly: false,
 		superAdminOnly: false
 	},
 	{
 		startStrings: [],
-		containString: ["!s", "!st", "!stk", "sticker", "stricker", "stiker", "figurinha"],
+		containStrings: ["!s", "!st", "!stk", "sticker", "stricker", "stiker", "figurinha"],
 		endStrings: [],
 		handler: stickersHandler,
 		needsMedia: true,
+		apenasTextoCompleto: true,
+		apenasPalavaInteira: true,
+		apenasInicio: true,
 		adminOnly: false,
 		superAdminOnly: false
 	},
@@ -85,25 +114,50 @@ const handlers = [
 	// Manipulação de imagens
 	{
 		startStrings: ["!"],
-		containString: ["rembg","removebg"],
+		containStrings: ["rembg","removebg"],
 		endStrings: [],
 		handler: removebgHandler,
 		needsMedia: false,
+		apenasTextoCompleto: false,
+		apenasPalavaInteira: true,
+		apenasInicio: true,
 		adminOnly: false,
 		superAdminOnly: false
 	},
 	{
 		startStrings: [],
-		containString: ["rembg","removebg","removefundo"],
+		containStrings: ["rembg","removebg","removefundo"],
 		endStrings: [],
 		handler: removebgHandler,
 		needsMedia: true,
+		apenasTextoCompleto: false,
+		apenasPalavaInteira: true,
+		apenasInicio: true,
 		adminOnly: false,
 		superAdminOnly: false
 	}
 ];
 
 // Deu, chega! A partir daqui não é necessário editar o código mais! (Mas também, sinta-se livre se quiser)
+function gerarPossiveisComandos(handler) {
+	let { startStrings, endStrings, containStrings } = handler;
+	const combinations = [];
+
+	startStrings = startStrings.length == 0 ? [""] : startStrings;
+	containStrings = containStrings.length == 0 ? [""] : containStrings;
+	endStrings = endStrings.length == 0 ? [""] : endStrings;
+
+	startStrings.forEach((start) => {
+		containStrings.forEach((contain) => {
+			endStrings.forEach((end) => {
+				const combination = start + contain + end;
+				combinations.push(combination);
+			});
+		});
+	});
+
+	return combinations;
+}
 
 function extrairDados(msg){
 	/*
@@ -158,14 +212,34 @@ function messageHandler(msg){
 		// Handlers de Comandos
 		//////////////////////////////////////////////////////
 		const handler = handlers.filter(
-			h => 	((h.adminOnly ? dados.admin : true)) && // Apenas para admin?
-					((h.superAdminOnly ? dados.superAdmin : true)) && // Apenas para Super admin?
-					((h.needsMedia ? msg.hasMedia : true)) && // Comando só pode ser executado em mensagens que contém mídia nela mesma?
-					(
-						(h.startStrings.length > 0 ? h.startStrings.some(hs => dados.cleanMessageText.startsWith(hs)) : true) && // Começa com
-						(h.endStrings.length > 0 ? h.endStrings.some(hs => dados.cleanMessageText.endsWith(hs)) : true) && // Termina com
-						(h.containString.length > 0 ? h.containString.some(hs => dados.cleanMessageText.includes(hs)) : true) // Tem essa palavra em algum lugar
-					)
+			h => { 	
+				const vereditoAdm = ((h.adminOnly ? dados.admin : true)); // Apenas para admin?
+				const vereditoSuperAdm = ((h.superAdminOnly ? dados.superAdmin : true)); // Apenas para Super admin?
+				const vereditoMedia = ((h.needsMedia ? msg.hasMedia : true)); // Comando só pode ser executado em mensagens que contém mídia nela mesma?
+				
+				const comandosPossiveis = gerarPossiveisComandos(h);
+				let vereditoStrings = false;
+
+				if(h.apenasTextoCompleto){
+					// Apenas se o comando for exatamente igual a mensagem que a pessoa enviou
+					vereditoStrings = comandosPossiveis.some(cmd => dados.cleanMessageText === cmd);
+				} else {
+					if(h.apenasInicio){
+						if(h.apenasPalavaInteira){ // Apenas se COMEÇA com alguma das strings INTEIRA
+							vereditoStrings = comandosPossiveis.some(cmd => dados.cleanMessageText.split(" ")[0] == cmd);
+						} else { // Apenas se COMEÇA com alguma das strings
+							vereditoStrings = comandosPossiveis.some(cmd => dados.cleanMessageText.startsWith(cmd));
+						}
+					} else {
+						// Não precisa ser no começo, se tiver algo no meio da mensagem, ok
+						vereditoStrings = comandosPossiveis.some(cmd => dados.cleanMessageText.includes(cmd));
+					}
+				}
+
+				const vereditoFinal = vereditoAdm && vereditoSuperAdm && vereditoMedia && vereditoStrings;
+
+				return vereditoFinal;
+			}
 		)[0]?.handler ?? handlerComandosNormais; // Se nenhum Handler pré-definido foi encontrado, joga pro comandos normais
 
 		//loggerInfo(`[messageHandler] Handler? ${handler}`);

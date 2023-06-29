@@ -1,4 +1,10 @@
 const { loggerInfo, loggerWarn } = require("./logger");
+const configs = require("./configs");
+
+/*
+	Muitas das funções na wwebjs não estão com try/catch, o que causa erros que fecham o bot.
+	A ideia desse arquivo é encapsular os métodos em funções que evitem esse tipo de problema.
+*/
 
 let clientBot = undefined;
 function setWrapperClient(client){
@@ -10,33 +16,28 @@ function getRandomInt(min, max) {
 	max = Math.floor(max);
 	return Math.floor(Math.random() * (max - min)) + min;
 }
+
 function roughSizeOfObject( object ) {
 	var objectList = [];
 	var stack = [ object ];
 	var bytes = 0;
 
-	while ( stack.length ) {
+	while (stack.length) {
 		var value = stack.pop();
 
-		if ( typeof value === 'boolean' ) {
+		if(typeof value === 'boolean'){
 			bytes += 4;
-		}
-		else if ( typeof value === 'string' ) {
+		} else 
+		if(typeof value === 'string'){
 			bytes += value.length * 2;
-		}
-		else if ( typeof value === 'number' ) {
+		} else 
+		if(typeof value === 'number'){
 			bytes += 8;
-		}
-		else if
-		(
-			typeof value === 'object'
-			&& objectList.indexOf( value ) === -1
-		)
-		{
-			objectList.push( value );
-
-			for( var i in value ) {
-				stack.push( value[ i ] );
+		} else
+		if(typeof value === 'object' && objectList.indexOf( value ) === -1){
+			objectList.push(value);
+			for(var i in value) {
+				stack.push(value[i]);
 			}
 		}
 	}
@@ -120,79 +121,28 @@ function dispatchMessages(dados,mensagensEnviar){
 			toEnvioAtual += getRandomInt(100,700) + 300;
 			setTimeout((msgObj, qutdMsg, msgEnviar) => { // Pra não responder msgs instant
 				// Opções de envio
-				let opts = undefined;
+				let opts = {};
+
 				if(msgEnviar.isSticker){
-					if(opts){
 						opts.sendMediaAsSticker = true;
-						opts.stickerAuthor = `legionbot`;
+						opts.stickerAuthor = configs.bot.nome;
 						opts.stickerName = `sticker-${dados.nomeGrupo}`;
-					} else {
-						opts = {
-							sendMediaAsSticker: true,
-							stickerAuthor: `legionbot`,
-							stickerName: `sticker-${dados.nomeGrupo}`
-						};
-					}
 				} 
-				if(msgEnviar.isGif){
-					if(opts){
-						opts.sendVideoAsGif = true;
-					} else {
-						opts = {
-							sendVideoAsGif: true,
-						};
-					}
-				}
-				if(msgEnviar.isAudio){
-					if(opts){
-						opts.sendAudioAsVoice = true;
-					} else {
-						opts = {
-							sendAudioAsVoice: true,
-						};
-					}
-				}
-				if(msgEnviar.isFile){
-					if(opts){
-						opts.sendMediaAsDocument = true;
-					} else {
-						opts = {
-							sendMediaAsDocument: true,
-						};
-					}
-				}
 
 				if(msgEnviar.replyCustomMsg){
 					msgEnviar.reply = false; // Pra ter certeza que vai usar o sendMessage
-					if(opts){
-						opts.quotedMessageId = msgEnviar.replyCustomMsg;
-					} else {
-						opts = {
-							quotedMessageId: msgEnviar.replyCustomMsg
-						};
-					}
+					opts.quotedMessageId = msgEnviar.replyCustomMsg;
 				}
-				if(msgEnviar.legenda){
-					if(opts){
-						opts.caption = msgEnviar.legenda;
-					} else {
-						opts = {
-							caption: msgEnviar.legenda
-						};
-					}
-				}
-				if(msgEnviar.marcarPessoas){
-					if(opts){
-						opts.mentions = msgEnviar.marcarPessoas;
-					} else {
-						opts = {
-							mentions: msgEnviar.marcarPessoas
-						};
-					}
-				}
+
+				opts.sendVideoAsGif = msgEnviar.isGif ?? false;
+				opts.sendAudioAsVoice = msgEnviar.isAudio ?? false;
+				opts.sendMediaAsDocument = msgEnviar.isFile ?? false;
+				opts.caption = msgEnviar.legenda ?? false;
+				opts.mentions = msgEnviar.marcarPessoas ?? false;
 
 				// Envia
 				try{
+
 					if(msgEnviar.react){
 						if(msgEnviar.react.length > 0){
 							reagirMsg(msgObj,msgEnviar.react);
@@ -201,6 +151,7 @@ function dispatchMessages(dados,mensagensEnviar){
 							}
 						}
 					}
+
 					if(msgEnviar.reply){
 						if(qutdMsg){
 							// Se alguém quotou uma mensagem, responde pra ela ao invés da original
@@ -209,7 +160,7 @@ function dispatchMessages(dados,mensagensEnviar){
 								loggerWarn(`[sistema] Erro usando quotedMsg.reply, provavelmente não existe mais.`);
 								msgObj.reply(msgEnviar.msg,msgObj.from,opts).catch(e => {
 									// Algumas vezes o whatsweb não consegue dar reply numa mensagem, então aqui a gente apela por enviar ela sem ser reply mesmo. (último caso)
-									loggerWarn(`[sistema] Erro usando messg.reply, provavelmente não existe mais.`);
+									loggerWarn(`[sistema] Erro usando msgObj.reply, provavelmente não existe mais.`);
 									clientBot.sendMessage(msgObj.from,msgEnviar.msg,msgObj.from,opts).catch((e) => {
 										loggerWarn(`[sistema][msg][erro][q] ${e}`);
 										//reagirMsg(msg,"🚫");
@@ -237,12 +188,6 @@ function dispatchMessages(dados,mensagensEnviar){
 				} catch(e){
 					let msgErro = e.toString();
 					loggerWarn(`[sistema] Erro enviando mensagem: ${msgErro}`);
-					loggerWarn("stack");
-					loggerWarn(e.stack);
-					loggerWarn("message");
-				    loggerWarn(e.message);
-				    loggerWarn("name");
-				    loggerWarn(e.name);
 				}
 			}, toEnvioAtual, dados.msg, dados.quotedMsg, mesgEnviar);
 		});

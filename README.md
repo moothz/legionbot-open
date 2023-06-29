@@ -10,7 +10,7 @@ Estas são funções que o legionbot já faz (ou pretendo fazer), mas que precis
 - [ ] Handlers básicos
     - [X] Handler msgs
     - [ ] Handler Reacts
-    - [ ] Reescrever o `wrappers-bot.js`
+    - [ ] Reescrever o `wrappers-bot.js` (usar promises, melhorar fluxo do dispatch)
     - [ ] Handler Comandos Normais
 
 - [ ] Gerencia
@@ -92,6 +92,9 @@ $ sudo apt install -y nodejs
 
 ### ffmpeg
 Acesse o site oficial do [ffmpeg](https://ffmpeg.org/download.html) e faça o download dos executáveis. Coloque em uma pasta que você saiba o caminho, pois vai precisar configurar o mesmo no `configs.js`.
+
+### ImageMagick
+O bot utiliza o liquify do ImageMagick pra fazer a função *distort*.
 
 ### python3 & rembg
 

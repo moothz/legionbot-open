@@ -4,7 +4,7 @@ function getGroupNameByNumeroGrupo(numero){
 }
 
 function isSuperAdmin(numero){
-
+	return false;
 }
 
 module.exports = { getGroupNameByNumeroGrupo, isSuperAdmin }

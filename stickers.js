@@ -13,7 +13,9 @@ function stickersBgHandler(dados){
 
 		if(msgMedia){
 			msgMedia.downloadMedia().then(attachmentData => {
-				removerFundoMessageMedia(attachmentData).then((attachmentDataNoBg) => {
+				const imgProcessar = attachmentData.mimetype.includes("video") ? {data: msgMedia._data.body, mimetype: "image/jpeg"} : attachmentData;
+
+				removerFundoMessageMedia(imgProcessar).then((attachmentDataNoBg) => {
 					reagirMsg(dados.msg, "✅");
 					resolve([{msg: attachmentDataNoBg, isSticker: true, reply: true}]);
 				}).catch(e => {

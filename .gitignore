@@ -130,7 +130,8 @@ exemplo_msg.js
 tests.js
 media/*
 logs/*
+temp/*
 !media/.gitkeep
-!media/temp/.gitkeep
+!temp/.gitkeep
 !logs/.gitkeep
 

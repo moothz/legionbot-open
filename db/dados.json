@@ -1,0 +1,39 @@
+{
+  "donates": [],
+  "pvBot_grupoCustom": {
+    "551234567890@c.us": "grupo"
+  },
+  "grupos": [
+    {
+      "nome": "grupo",
+      "numeroGrupo": "551234567890@c.us",
+      "comandosMutados": [],
+      "opts": {
+        "incluirGenericos": true,
+        "incluirNSFW": true,
+        "gptAutoReply": true,
+        "marcarTodosYoutube": true,
+        "marcarTodosTwitch": true,
+        "mudarTituloGrupoByTwitch": false,
+        "grupoPermiteLembretePraTodos": true,
+        "msgBoasVindas": false,
+        "tempoForaRoleta": 300000,
+        "autostt": true,
+        "sttKey": "abcdefghij1234567890"
+      },
+      "twitch": false,
+      "gpt": {
+        "permiteImg": false,
+        "maxTokens": 300,
+        "tempoCooldownUser": 90000,
+        "img_tempoCooldownUser": 180000,
+        "tempoCooldownGrupo": 60000,
+        "img_tempoCooldownGrupo": 300000,
+        "blocked": []
+      }
+    }
+  ],
+  "listaIgnoreMentions": [
+    "551234567890"
+  ]
+}
