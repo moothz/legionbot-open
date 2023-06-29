@@ -29,9 +29,8 @@ const logger = winston.createLogger({
 
 
 function getTimestamp(){
-	var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+	var tzoffset = (new Date()).getTimezoneOffset() * 60000;
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().replace(/T/, ' ').replace(/\..+/, '');
-	//return new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
 	return localISOTime;
 }
 

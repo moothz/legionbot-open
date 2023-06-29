@@ -2,7 +2,7 @@
 
 Código fonte do *legionbot*, liberado pra galera hospedar seu próprio bot do zap sem depender de mim!
 
-Criei o bot pra aprender os detalhes de usar *javascript* com *nodejs*, então o código da versão que está rodando é simplesmente um caos e cheia de gambiarras. Essa versão que posto aqui, vai servir pra tentar aplicar boas práticas e também tentar deixar o código mais acessível e modular, para que novas funções possam ser implementadas por qualquer um.
+Criei o bot pra aprender os detalhes de usar *javascript* com *nodejs*, então o código da versão que está rodando é simplesmente um caos e cheia de gambiarras. Essa versão que posto aqui, vai servir pra tentar aplicar boas práticas e também tentar deixar o código mais acessível, sem chamadas que bloqueiam o código e mais modular, para que novas funções possam ser implementadas por outras pessoas sem grandes dificuldades.
 
 ## Checklist de coisas pra implementar
 
@@ -19,6 +19,7 @@ Estas são funções que o legionbot já faz (ou pretendo fazer), mas que precis
 
 - [ ] Filtros de Mensagens  
     - [X] Mensagens do bot
+    - [ ] Whitelist no PV
     - [ ] Travazaps
     - [ ] Mensagens NSFW
     - [ ] Links
@@ -29,6 +30,10 @@ Estas são funções que o legionbot já faz (ou pretendo fazer), mas que precis
         - [X] Stickers normais
         - [X] Stickers sem fundo
         - [ ] Transformar sticker em foto/vídeo/arquivo
+    - [ ] Manipulação de imagens
+        - [X] Remover Fundo
+        - [ ] Distort/Mogrify
+        - [ ] NeedsMoreJPEG
     - [ ] !atenção
     - [ ] Roleta
     - [ ] GPT 

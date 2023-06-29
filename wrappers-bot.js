@@ -1,6 +1,11 @@
 const { loggerInfo, loggerWarn } = require("./logger");
 const configs = require("./configs");
 
+/*
+	Muitas das funções na wwebjs não estão com try/catch, o que causa erros que fecham o bot.
+	A ideia desse arquivo é encapsular os métodos em funções que evitem esse tipo de problema.
+*/
+
 let clientBot = undefined;
 function setWrapperClient(client){
 	clientBot = client;
@@ -11,6 +16,7 @@ function getRandomInt(min, max) {
 	max = Math.floor(max);
 	return Math.floor(Math.random() * (max - min)) + min;
 }
+
 function roughSizeOfObject( object ) {
 	var objectList = [];
 	var stack = [ object ];

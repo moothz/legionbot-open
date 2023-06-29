@@ -5,7 +5,7 @@ const path = require('node:path');
 const { exec } = require('child_process');
 const { nomeRandom, apagarArquivos } = require("./auxiliares");
 const mime = require('mime-types');
-const fs = require('fs');
+const fsp = require('fs').promises;
 
 function removerFundoMessageMedia(attachmentData){
 	loggerInfo(`[removerFundoMessageMedia] Chegou`);
@@ -17,17 +17,21 @@ function removerFundoMessageMedia(attachmentData){
 		const arquivoTempSaida = path.join(configs.rootFolder,"media","temp",`rembg_${nRand}_out.png`);
 
 		loggerInfo(`[removerFundoMessageMedia] Removendo fundo: '${arquivoTempEntrada}' -> '${arquivoTempSaida}'...`);
-		fs.writeFileSync(arquivoTempEntrada, buff);
-		
-		exec(`${configs.apps.removebg} i ${arquivoTempEntrada} ${arquivoTempSaida}`, (error, stdout, stderr) => {
-			if (stderr || error || stdout.includes("erro")) {
-				loggerWarn(`[removerFundoMessageMedia] Erro:\n${error}\n${stderr}\n${stdout}\n----`);
-				reject(`[removerFundoMessageMedia] ${error}, ${stderr}`);
-			} else {
-				apagarArquivos([arquivoTempEntrada,arquivoTempSaida]);
-				resolve(MessageMedia.fromFilePath(arquivoTempSaida,"image/png"));
-			}
+		fsp.writeFile(arquivoTempEntrada, buff).then((res) => {
+			exec(`${configs.apps.removebg} i ${arquivoTempEntrada} ${arquivoTempSaida}`, (error, stdout, stderr) => {
+				if (stderr || error || stdout.includes("erro")) {
+					loggerWarn(`[removerFundoMessageMedia] Erro:\n${error}\n${stderr}\n${stdout}\n----`);
+					reject(`[removerFundoMessageMedia] ${error}, ${stderr}`);
+				} else {
+					apagarArquivos([arquivoTempEntrada,arquivoTempSaida]);
+					resolve(MessageMedia.fromFilePath(arquivoTempSaida,"image/png"));
+				}
+			});
+		}).catch(e => {
+			loggerWarn(`[removerFundoMessageMedia] Erro tentando gravar arquivo:\n${e}`);
+			reject(e);
 		});
+		
 	});
 }
 

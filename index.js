@@ -16,24 +16,24 @@ const client = new Client({
 	}
 });
 
-loggerInfo(`[sistema] Iniciando bot (wwebjs ${version})`);
+loggerInfo(`[sistema] Iniciando ${configs.bot.nome} (wwebjs ${version})`);
+
 client.initialize();
 
-client.on('qr', (qr) => {
+client.on("qr", (qr) => {
 	loggerInfo('[sistema] Recebido QRCode: ', qr);
 	qrcode.generate(qr, {small: true});
 });
 
-client.on('authenticated', () => {
+client.on("authenticated", () => {
 	loggerInfo('[sistema] Autenticado com sucesso.');
-
 });
 
-client.on('auth_failure', msg => {
+client.on("auth_failure", msg => {
 	console.error('[sistema] Erro Autenticando o whatsapp, limpe os arquivos de .wwebjs_auth e tente novamente', msg);
 });
 
-client.on('ready', () => {
+client.on("ready", () => {
 	loggerInfo('READY');
 	initAuxiliares(client);
 	setWrapperClient(client);
