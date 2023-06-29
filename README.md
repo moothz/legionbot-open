@@ -23,6 +23,7 @@ Estas são funções que o legionbot já faz (ou pretendo fazer), mas que precis
 
 - [ ] Filtros de Mensagens  
     - [X] Mensagens do bot
+    - [ ] SPAM
     - [ ] Whitelist no PV
     - [ ] Travazaps
     - [ ] Mensagens NSFW

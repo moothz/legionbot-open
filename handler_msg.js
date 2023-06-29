@@ -3,9 +3,9 @@ const { filtrarMsg, ignorarMsg } = require("./filtros");
 const { stickersHandler, stickersBgHandler } =	require("./stickers");
 const { removebgHandler } = require("./imagens")
 const { getGroupNameByNumeroGrupo, isSuperAdmin } = require("./db");
-const { isUserAdmin } = require("./auxiliares");
+//const { isUserAdmin } = require("./auxiliares");
 const { handlerComandosNormais } = require("./comandosNormais");
-const { dispatchMessages, reagirMsg, removerPessoasGrupo, adicionarPessoasGrupo, tornarPessoasAdmin, setWrapperClient, deletaMsgs } = require("./wrappers-bot");
+const { dispatchMessages, reagirMsg, removerPessoasGrupo, adicionarPessoasGrupo, tornarPessoasAdmin, setWrapperClient, deletaMsgs, isUserAdminInChat } = require("./wrappers-bot");
 
 /* Aqui é onde os comandos fixos interpretados pelo bot serão definidos
 	
@@ -156,7 +156,7 @@ function extrairDados(msg){
 				msg: msg,
 				quotedMsg: await msg.getQuotedMessage(),
 				chat: await msg.getChat(),
-				nomeGrupo: getGroupNameByNumeroGrupo(),
+				nomeGrupo: getGroupNameByNumeroGrupo(msg.from),
 				numeroAutor: msg.author ?? "55????????@c.us",
 				contatoAutor: await msg.getContact(),
 				mentions: await msg.getMentions() ?? [],
@@ -164,12 +164,12 @@ function extrairDados(msg){
 			}
 
 			// Dados que dependem de promises/async
-			dados.admin = isUserAdmin(dados.numeroAutor,dados.chat);
+			dados.admin = isUserAdminInChat(dados.contatoAutor, dados.chat);
 			dados.superAdmin = isSuperAdmin(dados.numeroAutor);
 
 			// Adiciona quem está em resposta na lista de mencionados
 			if(dados.quotedMsg){
-				dados.mentions.push(await dados.quotedMsg.getContact());
+				dados.mentions.unshift(await dados.quotedMsg.getContact());
 			}
 
 			resolve(dados);
@@ -192,7 +192,7 @@ function messageHandler(msg){
 	extrairDados(msg)
 	.then(ignorarMsg)
 	.then(dados => {
-		//loggerInfo(`[messageHandler] Dados Extraídos:`, dados);
+		loggerInfo(`[messageHandler] Dados Extraídos:\n${JSON.stringify(dados,null,"\t")}`);
 
 		//////////////////////////////////////////////////////
 		// Handlers de Comandos

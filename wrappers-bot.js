@@ -267,4 +267,17 @@ function deletaMsgs(msgs, toInicial = 10000){
 	}
 }
 
-module.exports = { reagirMsg, removerPessoasGrupo, adicionarPessoasGrupo, tornarPessoasAdmin, dispatchMessages, setWrapperClient, deletaMsgs }
+function isUserAdminInChat(contato, chat){
+	let isAdmin = false;
+
+	let membros = chat?.participants ?? false;
+	if(membros) {
+		isAdmin = (membros.filter(membro => membro.isAdmin && membro.id.user === contato?.id.user)).length > 0;
+	} else {
+		loggerWarn(`[isUserAdmin] Não recebi lista de membros. Info grupo: ${JSON.stringify(chat)}`);
+	}
+
+	return isAdmin;
+}
+
+module.exports = { reagirMsg, removerPessoasGrupo, adicionarPessoasGrupo, tornarPessoasAdmin, dispatchMessages, setWrapperClient, deletaMsgs, isUserAdminInChat }

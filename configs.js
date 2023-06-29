@@ -12,4 +12,6 @@ const apps = {
 }
 
 
-module.exports = { bot, apps, rootFolder }
+const superAdmins = ["5599887766", "5199887766"];
+
+module.exports = { bot, apps, rootFolder, superAdmins }

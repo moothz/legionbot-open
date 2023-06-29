@@ -12,7 +12,7 @@ function apagarArquivos(arquivos,tempo=120000){
 		arquivos = [arquivos];
 	}
 
-	setTimeout((arqs)=>{
+	setTimeout((arqs) => {
 		for(let arq of arqs){
 			loggerInfo(`[apagarArquivo] ${arq}`);
 			fs.unlinkSync(arq);
@@ -26,8 +26,6 @@ function initAuxiliares(client){
 	getContactById = clientBot.getContactById;
 }
 
-function isUserAdmin(numero){
-	return true;
-}
 
-module.exports = { initAuxiliares, isUserAdmin, nomeRandom, apagarArquivos }
+
+module.exports = { initAuxiliares, nomeRandom, apagarArquivos }

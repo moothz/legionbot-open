@@ -1,12 +1,11 @@
 {
-  "donates": [],
   "pvBot_grupoCustom": {
     "551234567890@c.us": "grupo"
   },
   "grupos": [
     {
       "nome": "grupo",
-      "numeroGrupo": "551234567890@c.us",
+      "numero": "551234567890@c.us",
       "comandosMutados": [],
       "opts": {
         "incluirGenericos": true,
