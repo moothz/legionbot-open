@@ -2,11 +2,10 @@ const { loggerInfo, loggerWarn } = require("./logger");
 const { filtrarMsg, ignorarMsg } = require("./filtros");
 const { stickersHandler, stickersBgHandler } =	require("./stickers");
 const { removebgHandler } = require("./imagens")
-const { getGroupNameByNumeroGrupo, isSuperAdmin } = require("./db");
+const { getGroupNameByNumeroGrupo, isSuperAdmin, cadastrarHandler } = require("./db");
 //const { isUserAdmin } = require("./auxiliares");
 const { handlerComandosNormais } = require("./comandosNormais");
 const { dispatchMessages, reagirMsg, removerPessoasGrupo, adicionarPessoasGrupo, tornarPessoasAdmin, setWrapperClient, deletaMsgs, isUserAdminInChat } = require("./wrappers-bot");
-
 /* Aqui é onde os comandos fixos interpretados pelo bot serão definidos
 	
 	Cada comando possui propriedades que serão testadas pra saber em quais
@@ -45,6 +44,20 @@ const handlers = [
 		apenasInicio: true, // Se true, só considera que o comando estiver no começo da mensagem
 		adminOnly: false, // Comando é apenas para administradores do grupo?
 		superAdminOnly: false // Comando é apenas para SUPER administradores? (definidos no configs.js)
+	},
+
+	// Administração
+	{
+		startStrings: ["!"],
+		containStrings: ["cadastrar"],
+		endStrings: [],
+		handler: cadastrarHandler,
+		needsMedia: false,
+		apenasTextoCompleto: false,
+		apenasPalavaInteira: true,
+		apenasInicio: true,
+		adminOnly: true,
+		superAdminOnly: false
 	},
 
 	// Figurinhas
@@ -157,6 +170,7 @@ function extrairDados(msg){
 				quotedMsg: await msg.getQuotedMessage(),
 				chat: await msg.getChat(),
 				nomeGrupo: getGroupNameByNumeroGrupo(msg.from),
+				nomeAutor: msg._data.notifyName ?? "pessoa",
 				numeroAutor: msg.author ?? "55????????@c.us",
 				contatoAutor: await msg.getContact(),
 				mentions: await msg.getMentions() ?? [],
@@ -192,7 +206,7 @@ function messageHandler(msg){
 	extrairDados(msg)
 	.then(ignorarMsg)
 	.then(dados => {
-		loggerInfo(`[messageHandler] Dados Extraídos:\n${JSON.stringify(dados,null,"\t")}`);
+		//loggerInfo(`[messageHandler] Dados Extraídos:\n${JSON.stringify(dados,null,"\t")}`);
 
 		//////////////////////////////////////////////////////
 		// Handlers de Comandos

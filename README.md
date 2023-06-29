@@ -18,6 +18,8 @@ Estas são funções que o legionbot já faz (ou pretendo fazer), mas que precis
     - [ ] Handler Comandos Normais
 
 - [ ] Gerencia
+    - [X] Estruturar base de dados
+    - [X] Cadastro de Grupo
     - [ ] Preferências do grupo
     - [ ] CRUD comandos
 

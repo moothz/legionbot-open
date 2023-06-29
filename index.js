@@ -5,6 +5,7 @@ const { initAuxiliares } = require("./auxiliares");
 const configs = require("./configs");
 const { messageHandler } = require("./handler_msg");
 const { setWrapperClient } = require("./wrappers-bot");
+const { updateDbs } = require("./db");
 
 const client = new Client({
 	authStrategy: new LocalAuth({ clientId: configs.bot.clientID }),
@@ -37,6 +38,7 @@ client.on("ready", () => {
 	loggerInfo('READY');
 	initAuxiliares(client);
 	setWrapperClient(client);
+	updateDbs();
 });
 
 client.on("message", messageHandler);

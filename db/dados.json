@@ -1,11 +1,10 @@
 {
-  "pvBot_grupoCustom": {
-    "551234567890@c.us": "grupo"
-  },
+  "pvBot_grupoCustom": {},
   "grupos": [
     {
-      "nome": "grupo",
-      "numero": "551234567890@c.us",
+      "nome": "legionlog",
+      "numero": "666363041254059254@g.us",
+      "dataCriacao": "2023-06-29 18:33:37",
       "comandosMutados": [],
       "opts": {
         "incluirGenericos": true,
@@ -13,17 +12,46 @@
         "gptAutoReply": true,
         "marcarTodosYoutube": true,
         "marcarTodosTwitch": true,
-        "mudarTituloGrupoByTwitch": false,
+        "mudarTituloGrupoByTwitch": true,
         "grupoPermiteLembretePraTodos": true,
         "msgBoasVindas": false,
         "tempoForaRoleta": 300000,
-        "autostt": true,
-        "sttKey": "abcdefghij1234567890"
+        "autostt": false,
+        "sttKey": false
       },
       "twitch": false,
       "gpt": {
         "permiteImg": false,
-        "maxTokens": 300,
+        "maxTokens": 500,
+        "tempoCooldownUser": 90000,
+        "img_tempoCooldownUser": 180000,
+        "tempoCooldownGrupo": 60000,
+        "img_tempoCooldownGrupo": 300000,
+        "blocked": []
+      }
+    },
+    {
+      "nome": "legionlog_101750",
+      "numero": "120363041254059254@g.us",
+      "dataCriacao": "2023-06-29 18:35:55",
+      "comandosMutados": [],
+      "opts": {
+        "incluirGenericos": true,
+        "incluirNSFW": true,
+        "gptAutoReply": true,
+        "marcarTodosYoutube": true,
+        "marcarTodosTwitch": true,
+        "mudarTituloGrupoByTwitch": true,
+        "grupoPermiteLembretePraTodos": true,
+        "msgBoasVindas": false,
+        "tempoForaRoleta": 300000,
+        "autostt": false,
+        "sttKey": false
+      },
+      "twitch": false,
+      "gpt": {
+        "permiteImg": false,
+        "maxTokens": 500,
         "tempoCooldownUser": 90000,
         "img_tempoCooldownUser": 180000,
         "tempoCooldownGrupo": 60000,
@@ -32,7 +60,5 @@
       }
     }
   ],
-  "listaIgnoreMentions": [
-    "551234567890"
-  ]
+  "listaIgnoreMentions": []
 }
