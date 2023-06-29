@@ -126,3 +126,11 @@ dist
 .pnp.*
 .wwebjs_cache/*
 .wwebjs_auth/*
+exemplo_msg.js
+tests.js
+media/*
+logs/*
+!media/.gitkeep
+!media/temp/.gitkeep
+!logs/.gitkeep
+
