@@ -20,25 +20,11 @@ function apagarArquivos(arquivos,tempo=120000){
 	}, tempo, arquivos);
 }
 
-
 function initAuxiliares(client){
-	loggerInfo(`[initAuxiliares] ${client}`);
 	clientBot = client;
 
 	getContactById = clientBot.getContactById;
 }
-
-// async function getContactById(numero){
-// 	let contato;
-// 	try{
-// 		contato = await clientBot.getContactById(numero) ??
-// 	} catch(e){
-// 		loggerWarn(`[getContactById] ${e}`);
-// 		contato = null;
-// 	}
-
-// 	return contato;
-// }
 
 function isUserAdmin(numero){
 	return true;
