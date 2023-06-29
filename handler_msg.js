@@ -36,7 +36,7 @@ const { dispatchMessages, reagirMsg, removerPessoasGrupo, adicionarPessoasGrupo,
 const handlers = [
 	{
 		startStrings: ["!"], // Comando precisa COMEÇAR com alguma dessas strings
-		containStrings: ["comandos","cmd"], // Comando precisa conter alguma dessas palavras
+		containStrings: ["exemplo","example"], // Comando precisa conter alguma dessas palavras
 		endStrings: [], // Comando precisa TERMINAR com alguma dessas strings
 		handler: false, // Função que será chamada para processar os dados
 		needsMedia: false, // Precisa vir mídia NA MENSAGEM que tem o comando
@@ -45,20 +45,6 @@ const handlers = [
 		apenasInicio: true, // Se true, só considera que o comando estiver no começo da mensagem
 		adminOnly: false, // Comando é apenas para administradores do grupo?
 		superAdminOnly: false // Comando é apenas para SUPER administradores? (definidos no configs.js)
-	},
-
-	// Youtube
-	{
-		startStrings: ["!"],
-		containStrings: ["sr", "songrequest"],
-		endStrings: [],
-		handler: () => { console.log("SR"); },
-		needsMedia: false,
-		apenasTextoCompleto: false,
-		apenasPalavaInteira: true,
-		apenasInicio: true,
-		adminOnly: false,
-		superAdminOnly: false
 	},
 
 	// Figurinhas
