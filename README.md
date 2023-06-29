@@ -6,6 +6,8 @@ Código fonte do *legionbot*, liberado pra galera hospedar seu próprio bot do z
 
 Criei o bot pra aprender os detalhes de usar *javascript* com *nodejs*, então o código da versão que está rodando é simplesmente um caos e cheia de gambiarras. Essa versão que posto aqui, vai servir pra tentar aplicar boas práticas e também tentar deixar o código mais acessível, sem chamadas que bloqueiam o código e mais modular, para que novas funções possam ser implementadas por outras pessoas sem grandes dificuldades.
 
+*O código desse repositório está funcional, então você pode rodar e testar as funções já implementadas.*
+
 ## Checklist de coisas pra implementar
 
 Estas são funções que o legionbot já faz (ou pretendo fazer), mas que preciso reescrever e adaptar nesta versão.
@@ -119,7 +121,7 @@ Você também pode usar o poder da placa de vídeo do servidor, se for possível
 
 Com os pré-requisitos instalados, agora é hora de clonar ou baixar esse repositório e instalar as dependência.
 
-O legionbot usa os seguintes pacotes:
+O legionbot usa os seguintes pacotes (nesta versão, a final tem bem mais):
 - [whatsapp-web.js](https://github.com/pedroslopez/whatsapp-web.js): **Excelente** biblioteca para manipulação do WhatsappWeb
 - [winston](https://github.com/winstonjs/winston): Gerenciador de logs
 - [winston-daily-rotate-file](https://github.com/winstonjs/winston-daily-rotate-file): Extensão do gerenciador de logs para orgaização
