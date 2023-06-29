@@ -1,5 +1,7 @@
 # 🤖 legionbot-open
 
+**⚠️ ATENÇÃO**: Repositório ainda sendo organizado, apenas para curiosos, zero garantias.
+
 Código fonte do *legionbot*, liberado pra galera hospedar seu próprio bot do zap sem depender de mim!
 
 Criei o bot pra aprender os detalhes de usar *javascript* com *nodejs*, então o código da versão que está rodando é simplesmente um caos e cheia de gambiarras. Essa versão que posto aqui, vai servir pra tentar aplicar boas práticas e também tentar deixar o código mais acessível, sem chamadas que bloqueiam o código e mais modular, para que novas funções possam ser implementadas por outras pessoas sem grandes dificuldades.
