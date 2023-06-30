@@ -10,68 +10,68 @@ Criei o bot pra aprender os detalhes de usar *javascript* com *nodejs*, então o
 
 ## Checklist de coisas pra implementar
 
-Estas são funções que o legionbot já faz (ou pretendo fazer), mas que preciso reescrever e adaptar nesta versão.
+Estas são funções que o legionbot já faz (+ umas novas que pretendo fazer), mas que preciso reescrever e adaptar nesta versão.
 - [ ] Handlers básicos
-    - [X] Handler msgs
-    - [ ] Handler Reacts
-    - [ ] Reescrever o `wrappers-bot.js` (código antigo lixo)
-    - [ ] Handler Comandos Normais
+	- [X] Handler msgs
+	- [ ] Handler Reacts
+	- [ ] Reescrever o `wrappers-bot.js` (código antigo lixo)
+	- [ ] Handler Comandos Normais
 
 - [ ] Gerencia
-    - [X] Estruturar base de dados
-    - [X] Cadastro de Grupo
-    - [ ] Preferências do grupo
-    - [ ] CRUD comandos
+	- [X] Estruturar base de dados
+	- [X] Cadastro de Grupo
+	- [ ] Preferências do grupo
+	- [ ] CRUD comandos
 
 - [ ] Filtros de Mensagens  
-    - [X] Mensagens do bot
-    - [ ] SPAM
-    - [ ] Whitelist no PV
-    - [ ] Travazaps
-    - [ ] Mensagens NSFW
-    - [ ] Links
-    - [ ] Palavras pré-definidas
+	- [X] Mensagens do bot
+	- [ ] SPAM
+	- [ ] Whitelist no PV
+	- [ ] Travazaps
+	- [ ] Mensagens NSFW
+	- [ ] Links
+	- [ ] Palavras pré-definidas
 
 - [ ] Comandos Fixos
-    - [X] Stickers
-        - [X] Stickers normais
-        - [X] Stickers sem fundo
-        - [ ] Transformar sticker em foto/vídeo/arquivo
-    - [ ] Manipulação de imagens
-        - [X] Remover Fundo
-        - [ ] Distort/Mogrify
-        - [ ] NeedsMoreJPEG
-    - [ ] !atenção
-    - [ ] Roleta
-    - [ ] GPT 
-    - [ ] JrMuNews
-    - [ ] Horóscopo
-    - [ ] Lembretes
-    - [ ] Roubar
-    - [ ] Clima
-    - [ ] Google
-    - [ ] Wikipedia
-    - [ ] Text-to-Speech
-    - [ ] Speech-to-Text
-    - [ ] Deletar
-    - [ ] ELOs LoL e Valorant
-    - [ ] Baixar Instagram
-    - [ ] Baixar do Tiktok
-    - [ ] Listas
-    - [ ] Fechar/Abrir grupo
-    - [ ] Custom Requests
-        - [ ] InstaSiPt
-        - [ ] RAB aviões
+	- [X] Stickers
+		- [X] Stickers normais
+		- [X] Stickers sem fundo
+		- [ ] Transformar sticker em foto/vídeo/arquivo
+	- [ ] Manipulação de imagens
+		- [X] Remover Fundo
+		- [ ] Distort/Mogrify
+		- [ ] NeedsMoreJPEG
+	- [ ] !atenção
+	- [ ] Roleta
+	- [ ] GPT 
+	- [ ] JrMuNews
+	- [ ] Horóscopo
+	- [ ] Lembretes
+	- [ ] Roubar
+	- [ ] Clima
+	- [ ] Google
+	- [ ] Wikipedia
+	- [ ] Text-to-Speech
+	- [ ] Speech-to-Text
+	- [ ] Deletar
+	- [ ] ELOs LoL e Valorant
+	- [ ] Baixar Instagram
+	- [ ] Baixar do Tiktok
+	- [ ] Listas
+	- [ ] Fechar/Abrir grupo
+	- [ ] Custom Requests
+		- [ ] InstaSiPt
+		- [ ] RAB aviões
 
 - [ ] Notificação de Live e Vídeos
-    - [ ] Twitch
-    - [ ] Youtube
-    - [ ] Kick (sem API por enquanto)
+	- [ ] Twitch
+	- [ ] Youtube
+	- [ ] Kick (sem API por enquanto)
 
 - [ ] Projetos Futuros
-    - [ ] Tutoriais em GIF
-    - [ ] NSFW Horários específicos
-    - [ ] !add contato em grupo
+	- [ ] Tutoriais em GIF
+	- [ ] NSFW Horários específicos
+	- [ ] !add contato em grupo
 
 
 ## Como eu faço pra rodar?
@@ -81,9 +81,9 @@ Estas são funções que o legionbot já faz (ou pretendo fazer), mas que precis
 ### O que eu preciso pra começar?
 
 - Algum computador que rode Windows ou Linux
-    - Pode ser o teu PC de casa, um notebook, um raspberry pi, um beaglebone... Recomendo pelo menos 4Gb de RAM
+	- Pode ser o teu PC de casa, um notebook, um raspberry pi, um beaglebone... Recomendo pelo menos 4Gb de RAM
 - Um celular com WhatsApp instalado e um número cadastrado
-    - *NÃO USE* o seu próprio número, você **será** banido
+	- *NÃO USE* o seu próprio número, você **será** banido
 
 ### Quais programas preciso instalar?
 
@@ -95,7 +95,7 @@ $ curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 $ sudo apt install -y nodejs
 ```
 2. **Windows**:
-    Acesse o site oficial do [nodejs](https://nodejs.org/), baixe e instale a versão LTS.
+	Acesse o site oficial do [nodejs](https://nodejs.org/), baixe e instale a versão LTS.
 
 ### ffmpeg
 Acesse o site oficial do [ffmpeg](https://ffmpeg.org/download.html) e faça o download dos executáveis. Coloque em uma pasta que você saiba o caminho, pois vai precisar configurar o mesmo no `configs.js`.
@@ -108,17 +108,17 @@ O bot utiliza o liquify do ImageMagick pra fazer as funções *distort* e *JPEG*
 O bot utiliza a ferramenta **rembg** para remover fundo das imagens, que foi escrita em *python*. 
 
 1. Instale o python3
-    >https://www.python.org/downloads/
+	>https://www.python.org/downloads/
 2. Em um termimal, execute:
 ```sh
-    pip install rembg[cli]
+	pip install rembg[cli]
 ```
 Você também pode usar o poder da placa de vídeo do servidor, se for possível. Visite o repositório oficial do [rembg](https://github.com/danielgatis/rembg) para mais informações.
 
 3. Descubra onde está o executável do *rembg*
-    - No windows, digite em um novo terminal: `where rembg`
-    - No linux, digite em um novo terminal: `which rembg`
-    Isso retornará o caminho completo do executável (script) do *rembg*, copie e guarde este valor para colar no arquivo `configs.js`
+	- No windows, digite em um novo terminal: `where rembg`
+	- No linux, digite em um novo terminal: `which rembg`
+	Isso retornará o caminho completo do executável (script) do *rembg*, copie e guarde este valor para colar no arquivo `configs.js`
 
 ### legionbot
 
@@ -142,3 +142,71 @@ node index.js
 ```
 
 4. Escaneie o qr-code e *voilá*, só alegria!
+
+
+## Como eu contribuo?
+
+Financeiramente? Me manda um cafézinho no [tipa.aí](https://tipa.ai/moothz)!
+
+Teu negócio é programar e quer fazer uma função nova pro bot? O principal é implementar um handler!
+Seu handler vai receber uma variável recheadinha de informações das mensagens que chegam (uma por vez), ele só precisa retornar um array de objetos que chamo de mensagens a enviar.
+
+Você vai precisar saber usar, pelo menos um pouco, a biblioteca [wwebjs](https://docs.wwebjs.dev/).
+
+Aqui vai o link direto pra documentação dos objetos que você precisa conhecer:
+- [Message](https://docs.wwebjs.dev/Message.html)
+- [MessageMedia](https://docs.wwebjs.dev/MessageMedia.html)
+- [Contact](https://docs.wwebjs.dev/Contact.html)
+
+
+```js
+// Exemplo do que vem na variável 'dados':
+const dados = {
+	msg: [Objeto Message], // da mensagem recebida
+	quotedMsg: [Objeto Message], // da mensagem em resposta, se existir
+	chat: [Objeto Chat], // no contexto da mensagem (grupo, pv)
+	nomeGrupo: "pvdobot", // Nome do grupo no cadastro, 'generico' para sem cadastro ou 'pvdobot'
+	nomeAutor: "pessoa",
+	numeroAutor: "55????????@c.us",
+	contatoAutor: [Objeto Contact], // da pessoa que enviou a mensagem
+	mentions: [Objetos Contact, Contact, ...], // das pessoas @marcadas na mensagem + quem foi respondido (quote)
+	cleanMessageText: "bom dia, grupo!", // Mensagem em texto plano que a pessoa enviou, sanitizada
+	admin: false, // Quem enviou é admin do grupo?
+	superAdmin: // Quem enviou é admin do BOT? (Lista personalizada no configs.js)
+};
+
+// Copie o código abaixo e divirta-se! É importante que seja retornado uma promise.
+// Recomendo que use sempre o 'resolve' e inclua a mensagem de erro na resposta para o usuário
+// Caso chame um 'reject', o bot vai ignorar e mostrar os erros nos logs/terminal
+function seuHandler(dados){
+	return new Promise(async (resolve, reject) => {
+		// Uma mensagem possui vários parâmetros, você só precisa definir os que for usar!
+		// No exemplo abaixo coloquei todos os possíveis
+		const novaMensagem = {
+			msg: `Oi, ${dados.nomeAutor} eu sou um handler de exemplo!`, // Aqui pode ser um texto plano ou arquivo (abaixo)
+			react: "☺️", // Após responder, reagir com esse emoji ou nada (false)
+			reply: true, // Responder a mensagem que originou o comando (true) ou só enviar solta no chat (false)?
+			isSticker: false, // A mídia será enviada como sticker
+			isGif: false, // A mídia será enviada como gif
+			isAudio: false, // A mídia será enviada como mensagem de voz
+			isFile: false, // A mídia será enviada como arquivo
+			replyCustomMsg: false, // ID de uma mensagem personalizada pro bot responder (colocar em quote)
+			legenda: false, // Caso seja uma foto, vídeo ou gif, você pode especificar uma legenda
+			marcarPessoas: [Objetos Contact, Contact, ...] // Array de Contact das pessoas que o bot vai marcar na mensagem
+		};
+
+		const novaMensagemMidia = {
+			msg: MessageMedia.fromFilePath("fotos_da_festa.jpg"), // Para enviar mídia, você precisa usar o objeto MessagaMedia
+			legenda: "estavamos lindo nessa fotinha",
+			react: "😎",
+			reply: false
+		};
+
+		// Colocamos todas as mensagens a serem enviadas (1 comando pode gerar várias respostas!) no array
+		const mensagensEnviar = [novaMensagem, novaMensagemMidia];
+
+		// E tchau! Boa viagem, mensagensEnviar!
+		resolve(mensagensEnviar);
+	}
+}
+```
