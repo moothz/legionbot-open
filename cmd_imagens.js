@@ -4,8 +4,6 @@ const { nomeRandom } = require("./auxiliares");
 const { reagirMsg } = require("./wrappers-bot");
 
 function removebgHandler(dados){
-	loggerInfo(`[removebgHandler] Chegou`);
-
 	return new Promise(async (resolve,reject) => {
 		reagirMsg(dados.msg, "⏳");
 

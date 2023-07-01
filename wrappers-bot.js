@@ -229,7 +229,7 @@ function dispatchMessages(dados,mensagensEnviar){
 						logMensagemEnviada(`reply (${toEnvioAtual}ms)`,msgEnviar,opts,msgObj.from);
 					} else {
 						clientBot.sendMessage(msgObj.from, msgEnviar.msg, opts).catch((e) => {
-							loggerWarn(`[sistema][msg][erro][nr] ${e}`);
+							loggerWarn(`[sistema][msg][erro][nr] ${e}. Dados:\n${JSON.stringify(msgObj,null,"\t")}\n${JSON.stringify(msgEnviar,null,"\t")}`);
 							//reagirMsg(msgObj,"🚫");
 						});
 						logMensagemEnviada(`sendMessage (${toEnvioAtual}m)`,msgEnviar,opts,msgObj.from);
@@ -280,4 +280,27 @@ function isUserAdminInChat(contato, chat){
 	return isAdmin;
 }
 
-module.exports = { reagirMsg, removerPessoasGrupo, adicionarPessoasGrupo, tornarPessoasAdmin, dispatchMessages, setWrapperClient, deletaMsgs, isUserAdminInChat }
+
+function getTodosNumerosGrupo(grupo, listaIgnore = []){
+	let lista = grupo.participants.map(membro => {
+		if(!listaIgnore.includes(membro.id.user)){
+			return membro;
+		}
+	});
+
+	lista = lista.filter(l => (l !== undefined && l !== null));
+
+	return lista;
+}
+
+module.exports = { 
+	reagirMsg,
+	removerPessoasGrupo,
+	adicionarPessoasGrupo,
+	tornarPessoasAdmin,
+	dispatchMessages,
+	setWrapperClient,
+	deletaMsgs,
+	isUserAdminInChat,
+	getTodosNumerosGrupo 
+}

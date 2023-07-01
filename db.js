@@ -132,6 +132,10 @@ function updateDbs(callback){
 
 }
 
+function getDbGeral(){
+	return dbGeral;
+}
+
 function saveDbGeral(){
 	let data = JSON.stringify(dbGeral, null, 2);
 	fsp.writeFile(arquivoDados, data).then((res) => {
@@ -153,9 +157,10 @@ function saveDbFrases(){
 
 module.exports = { 
 	updateDbs,
+	getDbGeral,
 	saveDbGeral,
 	saveDbFrases,
 	getGroupNameByNumeroGrupo, 
-	isSuperAdmin ,
+	isSuperAdmin,
 	cadastrarHandler
 }
