@@ -99,6 +99,8 @@ $ sudo apt install -y nodejs
 
 ### Google Chrome
 O bot precisa do Google Chrome pra rodar pois ele vem com os codecs de vídeo proprietários. Se o Google Chrome, não será possível enviar vídeos.
+Mais informações aqui: [Caveat for sending videos and gifs](https://wwebjs.dev/guide/handling-attachments.html#sending-files-from-a-url).
+
 Esse é fácil de instalar, o importante é descobrir a pasta onde o chrome está instalado, para preencher no `configs.js`.
 
 ### ffmpeg
