@@ -8,7 +8,8 @@ const bot = {
 const apps = {
 	chrome: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
 	ffmpeg: "C:\\Apps\\ffmpeg.exe",
-	removebg: "C:\\Users\\moothz\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\rembg.exe"
+	removebg: "C:\\Users\\moothz\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\rembg.exe",
+	mogrify: "C:\\Program Files\\ImageMagick-7.1.0-Q16-HDRI\\mogrify.exe"
 }
 
 

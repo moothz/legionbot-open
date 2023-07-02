@@ -33,7 +33,7 @@ Estas são funções que o legionbot já faz (+ umas novas que pretendo fazer), 
 	- [ ] Palavras pré-definidas
 
 - [ ] Comandos Fixos
-	- [X] Stickers
+	- [ ] Stickers
 		- [X] Stickers normais
 		- [X] Stickers sem fundo
 		- [ ] Transformar sticker em foto/vídeo/arquivo
@@ -41,7 +41,7 @@ Estas são funções que o legionbot já faz (+ umas novas que pretendo fazer), 
 		- [X] Remover Fundo
 		- [ ] Distort/Mogrify
 		- [ ] NeedsMoreJPEG
-	- [ ] !atenção
+	- [X] !atenção
 	- [ ] Roleta
 	- [ ] GPT 
 	- [ ] JrMuNews
@@ -89,12 +89,12 @@ Estas são funções que o legionbot já faz (+ umas novas que pretendo fazer), 
 
 #### nodejs v16 ou superior
 
-1. **Debian e derivados**
+1. **Se você está usando Debian e derivados**:
 ```sh
 $ curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 $ sudo apt install -y nodejs
 ```
-2. **Windows**:
+2. **Se você está no Windows:**
 	Acesse o site oficial do [nodejs](https://nodejs.org/), baixe e instale a versão LTS.
 
 ### ffmpeg
@@ -102,6 +102,9 @@ Acesse o site oficial do [ffmpeg](https://ffmpeg.org/download.html) e faça o do
 
 ### ImageMagick
 O bot utiliza o liquify do ImageMagick pra fazer as funções *distort* e *JPEG*.
+
+Acesse o site oficial do [ImageMagick](https://imagemagick.org/script/download.php), faça o download e instale. Estou usando a versão `ImageMagick-7.1.1-12-Q16-HDRI-x64-dll.exe`, mas qualquer uma que intale o executável `mogrify.exe` serve.
+Anote a pasta onde foi instalado, pois vai precisar configurar o mesmo no `configs.js`.
 
 ### python3 & rembg
 
@@ -124,7 +127,7 @@ Você também pode usar o poder da placa de vídeo do servidor, se for possível
 
 Com os pré-requisitos instalados, agora é hora de clonar ou baixar esse repositório e instalar as dependência.
 
-O legionbot usa os seguintes pacotes (nesta versão, a final tem bem mais):
+O legionbot usa os seguintes pacotes (nesta versão, a final terá bem mais):
 - [whatsapp-web.js](https://github.com/pedroslopez/whatsapp-web.js): **Excelente** biblioteca para manipulação do WhatsappWeb
 - [winston](https://github.com/winstonjs/winston): Gerenciador de logs
 - [winston-daily-rotate-file](https://github.com/winstonjs/winston-daily-rotate-file): Extensão do gerenciador de logs para orgaização
