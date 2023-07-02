@@ -97,7 +97,13 @@ $ sudo apt install -y nodejs
 2. **Se você está no Windows:**
 	Acesse o site oficial do [nodejs](https://nodejs.org/), baixe e instale a versão LTS.
 
+### Google Chrome
+O bot precisa do Google Chrome pra rodar pois ele vem com os codecs de vídeo proprietários. Se o Google Chrome, não será possível enviar vídeos.
+Esse é fácil de instalar, o importante é descobrir a pasta onde o chrome está instalado, para preencher no `configs.js`.
+
 ### ffmpeg
+O bot utiliza o ffmpeg para converter arquivos de mídia (youtube, instagram) e fazer stickers nas proporções corretas.
+
 Acesse o site oficial do [ffmpeg](https://ffmpeg.org/download.html) e faça o download dos executáveis. Coloque em uma pasta que você saiba o caminho, pois vai precisar configurar o mesmo no `configs.js`.
 
 ### ImageMagick
