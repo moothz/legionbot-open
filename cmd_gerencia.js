@@ -1,5 +1,10 @@
 const { loggerInfo, loggerWarn } = require("./logger");
 const { getDbGeral, saveDbGeral, getGrupoByNome, updateDbs } = require("./db");
+const configs = require("./configs");
+const mime = require('mime-types');
+const fsp = require('fs').promises;
+const path = require('node:path');
+const { reagirMsg } = require("./wrappers-bot");
 
 /*
 	Os comandos de gerencia seguem o seguinte padrão
@@ -24,6 +29,49 @@ const gerenciaHandlers = {
 	"youtube": gerenciarYoutubeHandler
 };
 
+function getTipoMedia(tipoMensagem,isGif){
+	let emojiTipoMedia, tipoMediaAdd;
+	if(tipoMensagem == "chat"){
+		emojiTipoMedia = "💬";
+		tipoMediaAdd = "msg";
+	} else
+	if(tipoMensagem == "image"){
+		emojiTipoMedia = "🎨";
+		tipoMediaAdd = "img";
+	} else
+	if(tipoMensagem == "video"){
+		emojiTipoMedia = "📺";
+		tipoMediaAdd = "vid";
+		if(isGif){
+			emojiTipoMedia = "🎁";
+			tipoMediaAdd = "gif";
+		}
+	} else
+	if(tipoMensagem == "audio"){
+		emojiTipoMedia = "🔉";
+		tipoMediaAdd = "audio";
+	} else
+	if(tipoMensagem == "voice"){
+		emojiTipoMedia = "🎤";
+		tipoMediaAdd = "audio";
+	} else
+	if(tipoMensagem == "pt"){
+		emojiTipoMedia = "🎤";
+		tipoMediaAdd = "audio";
+	}
+	else if(tipoMensagem == "sticker"){
+		emojiTipoMedia = "🖼";
+		tipoMediaAdd = "sticker";
+		
+	}
+	else if(tipoMensagem == "document"){
+		emojiTipoMedia = "📄";
+		tipoMediaAdd = "document";		
+	}
+
+	return {tipo: tipoMediaAdd, react: emojiTipoMedia};
+}
+
 function infoGrupoHandler(dados){
 	return new Promise(async (resolve,reject) => {
 		const grupo = getGrupoByNome(dados.nomeGrupo);
@@ -42,8 +90,7 @@ function gerenciarHandler(dados){
 			loggerInfo(`[gerenciarHandler] ${categoria}.${item}`);
 
 			if(gerenciaHandlers[categoria]){
-				
-				loggerInfo(`[gerenciarHandler] ${dados.nomeGrupo} -> ${JSON.stringify(grupo)}`);
+				//loggerInfo(`[gerenciarHandler] ${dados.nomeGrupo} -> ${JSON.stringify(grupo)}`);
 				gerenciaHandlers[categoria](item, args, grupo, dados).then(resolve);
 			} else {
 				resolve([{msg: "Comando de gerência não encontrado.", reply: true, react: "🤔"}]);
@@ -104,32 +151,77 @@ function gerenciarTwitchHandler(item, args, grupo, dados){
 	      		}
 
 	      		saveDbGeral();
-	      		loggerInfo(`[gerenciarTwitchHandler][${grupo.nome}] Criado canal da twitch '${args[0]}'!`);
+	      		loggerInfo(`[gerenciarTwitchHandler]${debugHeader} Criado canal da twitch '${args[0]}'!`);
 	      		resolve([{msg: `[${grupo.nome}] O canal *${args[0]}* foi definido para este grupo!`, reply: true, react: "👍"}]);
 			} else {
-				loggerInfo(`[gerenciarTwitchHandler][${grupo.nome}] Tentou alterar '${item}' mas o canal ainda não foi definido.`);
+				loggerInfo(`[gerenciarTwitchHandler]${debugHeader} Tentou alterar '${item}' mas o canal ainda não foi definido.`);
 				resolve([{msg: `[${grupo.nome}] Este grupo ainda não possui um canal da twitch definido.`, reply: true, react: "👎"}]);
 			}
 		} else {
-			let guardarAlteracoes = true;
+			const debugHeader = `[${item}][${grupo.nome}@${grupo.twitch.canal}]`;
+			
+			let guardarAlteracoes = false;
 			let valorAnterior = "Nenhum";
 			let novoValor = "";
 			let msgErro = false;
+			let aguardarPromise = false; // Mensagens com mídia demoram a ser processadas
 
+			if(item === "marcar"){
+				if(grupo.opts.marcarTodosTwitch){
+					valorAnterior = "Sim";
+					novoValor = "Não";
+				} else {
+					valorAnterior = "Não";
+					novoValor = "Sim";
+				}
+
+				item = "Marcar Todos do Grupo (Twitch)";
+				grupo.opts.marcarTodosTwitch = !grupo.opts.marcarTodosTwitch;
+				guardarAlteracoes = true;
+			} else
+			if(item === "mudartitulo"){
+				if(grupo.opts.mudarTituloGrupoByTwitch){
+					valorAnterior = "Sim";
+					novoValor = "Não";
+				} else {
+					valorAnterior = "Não";
+					novoValor = "Sim";
+				}
+
+				item = "Mudar Título do Grupo (Twitch)";
+				grupo.opts.mudarTituloGrupoByTwitch = !grupo.opts.mudarTituloGrupoByTwitch;
+				guardarAlteracoes = true;
+			} else
 			if(item === "canal"){
 				valorAnterior = grupo.twitch.canal;
 				novoValor = args[0];
 				grupo.twitch.canal = args[0];
+				guardarAlteracoes = true;
 			} else
 			if(item === "titulo_on"){
 				valorAnterior = grupo.twitch.tituloLiveOn;
 				grupo.twitch.tituloLiveOn = dados.msg.body.split(" ").slice(1).join(" ").trim();
-				novoValor = grupo.twitch.tituloLiveOn;
+
+				if(grupo.twitch.tituloLiveOn.length < 1){
+					grupo.twitch.tituloLiveOn = false;
+					novoValor = "Nenhum";
+				} else {
+					novoValor = grupo.twitch.tituloLiveOn;
+				}
+
+				guardarAlteracoes = true;
 			} else
 			if(item === "titulo_off"){
 				valorAnterior = grupo.twitch.tituloLiveOff;
 				grupo.twitch.tituloLiveOff = dados.msg.body.split(" ").slice(1).join(" ").trim();
-				novoValor = grupo.twitch.tituloLiveOff;
+
+				if(grupo.twitch.tituloLiveOff.length < 1){
+					grupo.twitch.tituloLiveOff = false;
+					novoValor = "Nenhum";
+				} else {
+					novoValor = grupo.twitch.tituloLiveOff;
+				}
+				guardarAlteracoes = true;
 			} else
 			if(item === "visibilidade"){
 				if(grupo.twitch.publico){
@@ -140,29 +232,88 @@ function gerenciarTwitchHandler(item, args, grupo, dados){
 					novoValor = "Visível";
 				}
 				grupo.twitch.publico = !grupo.twitch.publico;
+				guardarAlteracoes = true;
 			} else
-			if(item === "media_on" || item === "midia_on"){
-				// Aqui pode ser texto, img, gif, sticker...
-				if(dados.msg.hasQuotedMsg){
+			if(item.startsWith("media_o")  || item.startsWith("midia_o")){
+				const tipoMomento = item.includes("off") ? "Off" : "On";
 
+				// Aqui pode ser texto, img, gif, sticker...
+				loggerInfo(`[gerenciarTwitchHandler]${debugHeader} hasQuotedMsg? ${dados.msg.hasQuotedMsg}`);
+				if(dados.msg.hasQuotedMsg){
+					loggerInfo(`[gerenciarTwitchHandler]${debugHeader} hasMedia? ${dados.quotedMsg.hasMedia}`);
+					if(dados.quotedMsg.hasMedia){
+						aguardarPromise = true;
+						// Se tem mídia, baixa
+						const tipoMediaTwitch = getTipoMedia(dados.quotedMsg.type.toLowerCase(), dados.quotedMsg.isGif);
+
+						loggerInfo(`[gerenciarTwitchHandler][${item}] Recebido: ${tipoMediaTwitch.tipo}, baixando...`);
+						reagirMsg(dados.msg, "⏳");
+						dados.quotedMsg.downloadMedia().then(attachmentData => {
+							// Baixa e salva o arquivo
+							const buff = Buffer.from(attachmentData.data, "base64");
+							const arquivoMidia = path.join(configs.rootFolder, "media",`twitch_${grupo.nome}_${grupo.twitch.canal}_${tipoMediaTwitch.tipo}.${mime.extension(attachmentData.mimetype)}`);
+
+							fsp.writeFile(arquivoMidia, buff).then((res) => {
+								loggerInfo(`[gerenciarTwitchHandler]${debugHeader} ${tipoMediaTwitch.tipo}: ${arquivoMidia}`);
+								grupo.twitch[`${tipoMediaTwitch.tipo}${tipoMomento}`] = arquivoMidia;
+								saveDbGeral();
+								resolve([{msg: `[${grupo.nome}] *${item}* recebido e definido como ${tipoMediaTwitch.tipo}${tipoMomento}!`, reply: true, react: tipoMediaTwitch.react}]);
+							}).catch(e => {
+								throw(e);
+							});
+						}).catch(e => {
+							loggerWarn(`[gerenciarTwitchHandler]${debugHeader} '${item}' não foi possível baixar mídia de quotedMsg.\n${e}`);
+							console.warn(e);
+							resolve([{msg: `[${grupo.nome}] Não consegui baixar este arquivo pra definir como *${item}*. Tente enviar novamente!`, reply: true, react: "👎"}]);
+						});
+					} else {
+						// Se não tem , é msgOn ou msgOff
+						grupo.twitch[`msg${tipoMomento}`] = dados.quotedMsg.body;
+						loggerInfo(`[gerenciarTwitchHandler]${debugHeader} msg${tipoMomento}: ${dados.quotedMsg.body}`);
+						resolve([{msg: `[${grupo.nome}] *${item}* recebido e definido como msg${tipoMomento}:\n\n${dados.quotedMsg.body}`, reply: true, react: "💬"}]);
+						guardarAlteracoes = true;
+					}
 				} else {
 					guardarAlteracoes = false; // Não precisa
+					loggerInfo(`[gerenciarTwitchHandler]${debugHeader} Não marcou mensagem com mídia.`);
 					msgErro = `[${grupo.nome}] Para definir uma mídia é necessário responder à mensagem desejada.`;
 				}
-			}
-			else {
-				guardarAlteracoes = false;
+			} else 
+			if(item.startsWith("media")  || item.startsWith("midia")){
+				msgErro = `[${grupo.nome}] Você deve informar ser é uma mídia On ou Off!\n*Uso:* Responda a mensagem do conteúdo com:\n!gerenciar-twitch-media_on\nou\n!gerenciar-twitch-media_off`;
+			} else
+			if(item.startsWith("del")){
+				// Deletar vem no argumento
+				// !gerenciar-twitch-del msgoff /  !gerenciar-twitch-del vidon
+				const obj = args[0];
+
+				if(grupo.twitch[obj]){
+					grupo.twitch[obj] = false;
+
+					valorAnterior = obj;
+					novoValor = "- Nada -";
+
+					loggerInfo(`[gerenciarTwitchHandler]${debugHeader} Removido: ${obj}`);
+					item = `${obj} (Removido)`; // apenas pra ficar bonito na msg de resposta
+					guardarAlteracoes = true;
+				} else {
+					loggerInfo(`[gerenciarTwitchHandler]${debugHeader} Está tentando deletar algo estranho: ${obj}`);
+					msgErro = `[${grupo.nome}] '${obj}' não é uma propriedade válida.\n*Uso*: !gerenciar-twitch-del propriedade\n\n*Valores possíveis:*\nmsgOn, imgOn, gifOn, audioOn, vidOn, imgOff, gifOff, audioOff, msgOff, vidOff e stickerOff`;
+				}
+
 			}
 
-			if(guardarAlteracoes){
-				loggerInfo(`[gerenciarTwitchHandler][${grupo.nome}] Alterado '${item}': ${valorAnterior} -> ${novoValor}`);
-				resolve([{msg: `[${grupo.nome}][${args[0]}] *${item}* era _'${valorAnterior}'_ e agora é _'${novoValor}'_!`, reply: true, react: "👍"}]);
-				saveDbGeral();
-			} else {
-				loggerInfo(`[gerenciarTwitchHandler][${grupo.nome}] '${item}' não existe.`);
+			if(!aguardarPromise){
+				if(guardarAlteracoes){
+					loggerInfo(`[gerenciarTwitchHandler]${debugHeader} Alterado '${item}': ${valorAnterior} -> ${novoValor}`);
+					resolve([{msg: `[${grupo.nome}] *${item}* era _'${valorAnterior}'_ e agora é _'${novoValor}'_!`, reply: true, react: "👍"}]);
+					saveDbGeral();
+				} else {
+					loggerInfo(`[gerenciarTwitchHandler]${debugHeader} '${item}' não existe.`);
 
-				msgErro = msgErro ? msgErro : `[${grupo.nome}][${args[0]}] *${item}* não é uma propriedade válida a ser definida!`;
-				resolve([{msg: msgErro, reply: true, react: "👎"}]);
+					msgErro = msgErro ? msgErro : `[${grupo.nome}] *${item}* não é uma propriedade válida a ser definida!`;
+					resolve([{msg: msgErro, reply: true, react: "👎"}]);
+				}
 			}
 		}
 	});
@@ -175,6 +326,9 @@ function gerenciarYoutubeHandler(item, args, grupo, dados){
 	});
 }
 
+/*
+
+// Debug
 updateDbs().then(()=>{
 	gerenciarHandler({
 		nomeGrupo: "legidonlog",
@@ -184,5 +338,6 @@ updateDbs().then(()=>{
 		}
 	}).then(console.log);
 });
+*/
 
 module.exports = { gerenciarHandler }

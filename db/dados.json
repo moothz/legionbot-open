@@ -77,6 +77,55 @@
         "img_tempoCooldownGrupo": 300000,
         "blocked": []
       }
+    },
+    {
+      "nome": "legion-open",
+      "numero": "120363159906314570@g.us",
+      "dataCriacao": "2023-07-03 15:13:53",
+      "comandosMutados": [],
+      "opts": {
+        "incluirGenericos": true,
+        "incluirNSFW": true,
+        "gptAutoReply": true,
+        "marcarTodosYoutube": true,
+        "marcarTodosTwitch": true,
+        "mudarTituloGrupoByTwitch": true,
+        "grupoPermiteLembretePraTodos": true,
+        "msgBoasVindas": false,
+        "tempoForaRoleta": 300000,
+        "autostt": false,
+        "sttKey": false
+      },
+      "twitch": {
+        "canal": "moothz",
+        "canaisZap": [
+          "120363159906314570@g.us"
+        ],
+        "tituloLiveOn": "Batata Frita On",
+        "tituloLiveOff": "",
+        "msgOn": "estamos oline!",
+        "imgOn": "C:\\Users\\moothz\\Documents\\GitHub\\legionbot-open\\media\\twitch_legion-open_moothz_img.jpeg",
+        "gifOn": "C:\\Users\\moothz\\Documents\\GitHub\\legionbot-open\\media\\twitch_legion-open_moothz_gif.mp4",
+        "audioOn": "C:\\Users\\moothz\\Documents\\GitHub\\legionbot-open\\media\\twitch_legion-open_moothz_audio.oga",
+        "vidOn": "C:\\Users\\moothz\\Documents\\GitHub\\legionbot-open\\media\\twitch_legion-open_moothz_vid.mp4",
+        "imgOff": "C:\\Users\\moothz\\Documents\\GitHub\\legionbot-open\\media\\twitch_legion-open_moothz_img.jpeg",
+        "gifOff": "C:\\Users\\moothz\\Documents\\GitHub\\legionbot-open\\media\\twitch_legion-open_moothz_gif.mp4",
+        "audioOff": false,
+        "msgOff": "estamos offlines!",
+        "vidOff": "C:\\Users\\moothz\\Documents\\GitHub\\legionbot-open\\media\\twitch_legion-open_moothz_vid.mp4",
+        "stickerOff": "C:\\Users\\moothz\\Documents\\GitHub\\legionbot-open\\media\\twitch_legion-open_moothz_sticker.webp",
+        "publico": false,
+        "stickerOn": "C:\\Users\\moothz\\Documents\\GitHub\\legionbot-open\\media\\twitch_legion-open_moothz_sticker.webp"
+      },
+      "gpt": {
+        "permiteImg": false,
+        "maxTokens": 500,
+        "tempoCooldownUser": 90000,
+        "img_tempoCooldownUser": 180000,
+        "tempoCooldownGrupo": 60000,
+        "img_tempoCooldownGrupo": 300000,
+        "blocked": []
+      }
     }
   ],
   "listaIgnoreMentions": [
