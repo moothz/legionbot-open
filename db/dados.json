@@ -19,7 +19,26 @@
         "autostt": false,
         "sttKey": false
       },
-      "twitch": false,
+      "twitch": {
+        "canal": "batata",
+        "canaisZap": [
+          "666363041254059254@g.us"
+        ],
+        "tituloLiveOn": "[ON] MUTiZZzZ",
+        "tituloLiveOff": false,
+        "msgOn": true,
+        "imgOn": false,
+        "gifOn": false,
+        "audioOn": false,
+        "vidOn": false,
+        "imgOff": false,
+        "gifOff": false,
+        "audioOff": false,
+        "msgOff": false,
+        "vidOff": false,
+        "stickerOff": false,
+        "publico": true
+      },
       "gpt": {
         "permiteImg": false,
         "maxTokens": 500,
@@ -60,5 +79,7 @@
       }
     }
   ],
-  "listaIgnoreMentions": ["555596424307"]
+  "listaIgnoreMentions": [
+    "555596424307"
+  ]
 }

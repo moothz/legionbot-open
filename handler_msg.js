@@ -8,6 +8,7 @@ const { handlerComandosNormais } = require("./cmd_comandosNormais");
 const { stickersHandler, stickersBgHandler } =	require("./cmd_stickers");
 const { chamarAtencaoHandler } = require("./cmd_atencao");
 const { removebgHandler } = require("./cmd_imagens");
+const { gerenciarHandler } = require("./cmd_gerencia");
 
 /* Aqui é onde os comandos fixos interpretados pelo bot serão definidos
 	
@@ -51,6 +52,19 @@ const handlers = [
 	},
 
 	// Administração
+	{
+		startStrings: ["!gerenciar-","!g-"],
+		containStrings: ["grupo-","cmd-","filtros-","roleta-","twitch-","youtube-"],
+		endStrings: [],
+		handler: gerenciarHandler,
+		needsMedia: false,
+		needsQuote: false,
+		apenasTextoCompleto: false,
+		apenasPalavaInteira: false,
+		apenasInicio: true,
+		adminOnly: true,
+		superAdminOnly: false
+	},
 	{
 		startStrings: ["!"],
 		containStrings: ["cadastrar"],
@@ -200,7 +214,7 @@ function extrairDados(msg){
 				numeroAutor: msg.author ?? "55????????@c.us",
 				contatoAutor: await msg.getContact(),
 				mentions: await msg.getMentions() ?? [],
-				cleanMessageText: msg.body.toLowerCase().trim() ?? ""
+				cleanMessageText: msg.body.toLowerCase().trim().replace("! ", "!") ?? ""
 			}
 
 			// Dados que dependem de promises/async

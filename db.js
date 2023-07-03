@@ -112,22 +112,27 @@ function isSuperAdmin(numero){
 	return configs.superAdmins.some(sA => numero.includes(sA)); // 'numero' pode ser o id completo: 555599887766@c.us
 }
 
-function updateDbs(callback){
-	// Frases
-	let data = "";
+function updateDbs(){
+	return new Promise(async (resolve,reject) => {
+		// Frases
+		let data = "";
 
-	fsp.readFile(arquivoFrases, "utf8").then(function (data) {
-		dbFrases = JSON.parse(data);
-		loggerInfo(`[DB] Atualizada DB de frases.`);
-	}).catch(function (error) {
-		loggerWarn(`[updateDbs] ERRO GRAVÍSSIMO: Não consegui ler arquivo ${arquivoFrases}: ${error}`);
-	});
+		fsp.readFile(arquivoFrases, "utf8").then(function (data) {
+			dbFrases = JSON.parse(data);
+			loggerInfo(`[DB] Atualizada DB de frases.`);
+		}).catch(function (error) {
+			loggerWarn(`[updateDbs] ERRO GRAVÍSSIMO: Não consegui ler arquivo ${arquivoFrases}: ${error}`);
+			reject();
+		});
 
-	fsp.readFile(arquivoDados, "utf8").then(function (data) {
-		dbGeral = JSON.parse(data);
-		loggerInfo(`[DB] Atualizada DB Geral.`); // ${JSON.stringify(dbGeral)}
-	}).catch(function (error) {
-		loggerWarn(`[updateDbs] ERRO GRAVÍSSIMO: Não consegui ler arquivo ${arquivoDados}: ${error}`);
+		fsp.readFile(arquivoDados, "utf8").then(function (data) {
+			dbGeral = JSON.parse(data);
+			loggerInfo(`[DB] Atualizada DB Geral.`); // ${JSON.stringify(dbGeral)}
+			resolve();
+		}).catch(function (error) {
+			loggerWarn(`[updateDbs] ERRO GRAVÍSSIMO: Não consegui ler arquivo ${arquivoDados}: ${error}`);
+			reject();
+		});
 	});
 
 }
@@ -155,11 +160,13 @@ function saveDbFrases(){
 }
 
 
+
 module.exports = { 
 	updateDbs,
 	getDbGeral,
 	saveDbGeral,
 	saveDbFrases,
+	getGrupoByNome,
 	getGroupNameByNumeroGrupo, 
 	isSuperAdmin,
 	cadastrarHandler
