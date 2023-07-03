@@ -160,6 +160,9 @@ function saveDbFrases(){
 }
 
 
+function getAllStreams(){
+	return [];
+}
 
 module.exports = { 
 	updateDbs,
@@ -169,5 +172,6 @@ module.exports = {
 	getGrupoByNome,
 	getGroupNameByNumeroGrupo, 
 	isSuperAdmin,
-	cadastrarHandler
+	cadastrarHandler,
+	getAllStreams
 }

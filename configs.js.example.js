@@ -1,4 +1,4 @@
-const rootFolder = "C:\\Users\\moothz\\Documents\\GitHub\\legionbot-open";
+const rootFolder = "C:\\Users\\Pessoa\\Documents\\GitHub\\legionbot-open";
 
 const bot = {
 	nome: "legionbot",
@@ -13,9 +13,9 @@ const apps = {
 }
 
 const twitch = {
-	idClient: "pbhjr7ne1b0jxb668ih9u7oge5xxm6",
-	secretClient: "3yrkvk3fuvj1ttv24m1ak55fi20x9r",
-	access_token: "wi9ikur9arda2u3ye6toqgt2f3p33g"
+	idClient: "pb....",
+	secretClient: "3yrk....",
+	access_token: "wi9...."
 };
 
 

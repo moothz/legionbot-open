@@ -140,6 +140,7 @@ O legionbot usa os seguintes pacotes (nesta versão, a final terá bem mais):
 - [winston](https://github.com/winstonjs/winston): Gerenciador de logs
 - [winston-daily-rotate-file](https://github.com/winstonjs/winston-daily-rotate-file): Extensão do gerenciador de logs para orgaização
 - [mime-types](https://github.com/jshttp/mime-types): Identificar extensão e tipo de arquivos
+- [@livecord/notify](https://www.npmjs.com/package/@livecord/notify): Monitoramento de Streams na twitch e vídeos do youtube
 
 1. Navegue até o diretório onde estão os arquivos do bot e instale os pacotes necessários utilizando:
 
@@ -168,7 +169,6 @@ Aqui vai o link direto pra documentação dos objetos que você precisa conhecer
 - [Message](https://docs.wwebjs.dev/Message.html)
 - [MessageMedia](https://docs.wwebjs.dev/MessageMedia.html)
 - [Contact](https://docs.wwebjs.dev/Contact.html)
-
 
 ```js
 // Exemplo do que vem na variável 'dados':

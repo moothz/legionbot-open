@@ -135,3 +135,5 @@ temp/*
 !temp/.gitkeep
 !logs/.gitkeep
 
+configs.js
+configs.js

@@ -111,7 +111,6 @@ function gerenciarCmdHandler(item, args, grupo, dados){
 	});
 }
 
-
 function gerenciarFiltrosHandler(item, args, grupo, dados){
 	return new Promise(async (resolve,reject) => {
 		loggerInfo(`[gerenciarFiltrosHandler] ${item} -> ${JSON.stringify(args)}`);
@@ -159,7 +158,7 @@ function gerenciarTwitchHandler(item, args, grupo, dados){
 			}
 		} else {
 			const debugHeader = `[${item}][${grupo.nome}@${grupo.twitch.canal}]`;
-			
+
 			let guardarAlteracoes = false;
 			let valorAnterior = "Nenhum";
 			let novoValor = "";
