@@ -54,7 +54,7 @@ const handlers = [
 	// Administração
 	{
 		startStrings: ["!gerenciar-","!g-"],
-		containStrings: ["grupo-","cmd-","filtros-","roleta-","twitch-","youtube-"],
+		containStrings: ["info", "grupo-","cmd-","filtros-","roleta-","twitch-","youtube-"],
 		endStrings: [],
 		handler: gerenciarHandler,
 		needsMedia: false,

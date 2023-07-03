@@ -15,6 +15,7 @@ const { getDbGeral, saveDbGeral, getGrupoByNome, updateDbs } = require("./db");
 */
 
 const gerenciaHandlers = {
+	"info": infoGrupoHandler,
 	"grupo": gerenciarGrupoHandler,
 	"cmd": gerenciarCmdHandler,
 	"filtros": gerenciarFiltrosHandler,
@@ -22,6 +23,12 @@ const gerenciaHandlers = {
 	"twitch": gerenciarTwitchHandler,
 	"youtube": gerenciarYoutubeHandler
 };
+
+function infoGrupoHandler(dados){
+	return new Promise(async (resolve,reject) => {
+		const grupo = getGrupoByNome(dados.nomeGrupo);
+	});
+}
 
 function gerenciarHandler(dados){
 	return new Promise(async (resolve,reject) => {
@@ -170,7 +177,7 @@ function gerenciarYoutubeHandler(item, args, grupo, dados){
 
 updateDbs().then(()=>{
 	gerenciarHandler({
-		nomeGrupo: "legionlog",
+		nomeGrupo: "legidonlog",
 		cleanMessageText: "!gerenciar-twitch-media_on [on] mutiz",
 		msg: {
 			body: "!gerenciar-twitch-titulo_on [ON] MUTiZZzZ"
