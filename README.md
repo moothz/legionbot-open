@@ -177,6 +177,7 @@ const dados = {
 	quotedMsg: [Objeto Message], // da mensagem em resposta, se existir
 	chat: [Objeto Chat], // no contexto da mensagem (grupo, pv)
 	nomeGrupo: "pvdobot", // Nome do grupo no cadastro, 'generico' para sem cadastro ou 'pvdobot'
+	idGrupo: false, // ID Interno do grupo que o whatsapp utiliza ("12345@g.us"). false se for no PV
 	nomeAutor: "pessoa",
 	numeroAutor: "55????????@c.us",
 	contatoAutor: [Objeto Contact], // da pessoa que enviou a mensagem

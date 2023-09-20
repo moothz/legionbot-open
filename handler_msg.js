@@ -210,6 +210,7 @@ function extrairDados(msg){
 				quotedMsg: await msg.getQuotedMessage(),
 				chat: await msg.getChat(),
 				nomeGrupo: getGroupNameByNumeroGrupo(msg.from),
+				idGrupo: msg.from.includes("@g") ? msg.from : false,
 				nomeAutor: msg._data.notifyName ?? "pessoa",
 				numeroAutor: msg.author ?? "55????????@c.us",
 				contatoAutor: await msg.getContact(),
