@@ -4,11 +4,11 @@ const { filtrarMsg, ignorarMsg } = require("./filtros");
 const { getGroupNameByNumeroGrupo, isSuperAdmin, cadastrarHandler } = require("./db");
 
 // Handlers de comandos
-const { handlerComandosNormais } = require("./cmd_comandosNormais");
-const { stickersHandler, stickersBgHandler } =	require("./cmd_stickers");
-const { chamarAtencaoHandler } = require("./cmd_atencao");
-const { removebgHandler } = require("./cmd_imagens");
-const { gerenciarHandler } = require("./cmd_gerencia");
+const { handlerComandosNormais } = require("./cmds/cmd_comandosNormais");
+const { stickersHandler, stickersBgHandler } =	require("./cmds/cmd_stickers");
+const { chamarAtencaoHandler } = require("./cmds/cmd_atencao");
+const { removebgHandler } = require("./cmds/cmd_imagens");
+const { gerenciarHandler } = require("./cmds/cmd_gerencia");
 
 /* Aqui é onde os comandos fixos interpretados pelo bot serão definidos
 	

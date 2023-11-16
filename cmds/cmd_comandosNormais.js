@@ -1,4 +1,4 @@
-const { loggerInfo, loggerWarn } = require("./logger");
+const { loggerInfo, loggerWarn } = require("../logger");
 
 function handlerComandosNormais(dados){
 	//loggerInfo(`[handlerComandosNormais] Chegou`);

@@ -1,7 +1,7 @@
-const { loggerInfo, loggerWarn } = require("./logger");
-const { removerFundoMessageMedia } = require("./exec_removeBg");
-const { nomeRandom } = require("./auxiliares");
-const { reagirMsg } = require("./wrappers-bot");
+const { loggerInfo, loggerWarn } = require("../logger");
+const { removerFundoMessageMedia } = require("../exec_removeBg");
+const { nomeRandom } = require("../auxiliares");
+const { reagirMsg } = require("../wrappers-bot");
 
 function removebgHandler(dados){
 	return new Promise(async (resolve,reject) => {

@@ -1,10 +1,10 @@
-const { loggerInfo, loggerWarn } = require("./logger");
-const { getDbGeral, saveDbGeral, getGrupoByNome, updateDbs } = require("./db");
-const configs = require("./configs");
+const configs = require("../configs");
 const mime = require('mime-types');
 const fsp = require('fs').promises;
 const path = require('node:path');
-const { reagirMsg } = require("./wrappers-bot");
+const { getDbGeral, saveDbGeral, getGrupoByNome, updateDbs } = require("../db");
+const { loggerInfo, loggerWarn } = require("../logger");
+const { reagirMsg } = require("../wrappers-bot");
 
 /*
 	Os comandos de gerencia seguem o seguinte padrão

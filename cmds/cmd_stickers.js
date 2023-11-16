@@ -1,7 +1,7 @@
-const { loggerInfo, loggerWarn } = require("./logger");
 const { MessageMedia } = require('whatsapp-web.js');
-const { reagirMsg } = require("./wrappers-bot");
-const { removerFundoMessageMedia } = require("./exec_removeBg");
+const { loggerInfo, loggerWarn } = require("../logger");
+const { reagirMsg } = require("../wrappers-bot");
+const { removerFundoMessageMedia } = require("../exec_removeBg");
 
 function stickersBgHandler(dados){
 	loggerInfo(`[stickersBgHandler] Chegou`);

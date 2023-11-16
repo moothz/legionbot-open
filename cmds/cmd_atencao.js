@@ -1,6 +1,6 @@
-const { loggerInfo, loggerWarn } = require("./logger");
-const { getDbGeral } = require("./db");
-const { getTodosNumerosGrupo, reagirMsg } = require("./wrappers-bot");
+const { loggerInfo, loggerWarn } = require("../logger");
+const { getDbGeral } = require("../db");
+const { getTodosNumerosGrupo, reagirMsg } = require("../wrappers-bot");
 
 
 function chamarAtencaoHandler(dados){
