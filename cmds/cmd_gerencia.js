@@ -85,7 +85,7 @@ function gerenciarHandler(dados){
 			resolve([{msg: "Seu grupo ainda não foi cadastrado e não pode ser gerenciado.\n\n!cadastrar nomeDoGrupo", reply: true, react: "⚠️"}]);
 		} else {
 			const args = dados.cleanMessageText.split(" ");
-			const [x, categoria, item] = args.shift().split("-"); // ["!gerenciar","categoria", "item"]
+			const [_, categoria, item] = args.shift().split("-"); // ["!gerenciar","categoria", "item"]
 
 			loggerInfo(`[gerenciarHandler] ${categoria}.${item}`);
 
@@ -107,7 +107,25 @@ function gerenciarGrupoHandler(item, args, grupo, dados){
 
 function gerenciarCmdHandler(item, args, grupo, dados){
 	return new Promise(async (resolve,reject) => {
+		args = [args[0], args.splice(1).join(" ")]
 		loggerInfo(`[gerenciarCmdHandler] ${item} -> ${JSON.stringify(args)}`);
+
+		if(item === "add"){
+
+		} else if(item === "addreply"){
+
+		} else if(item === "del"){
+
+		} else if(item === "reply"){
+
+		} else if(item === "react"){
+
+		} else if(item === "merge"){
+
+		} else {
+			loggerInfo(`[gerenciarCmdHandler] Opção '${item}' não existe.`);
+			resolve([{msg: `[${grupo.nome}] Opção '${item}' não existe.`, reply: true, react: "👎"}]);
+		} 
 	});
 }
 
