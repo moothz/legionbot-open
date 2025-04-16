@@ -1,6 +1,5 @@
 # 🤖 legionbot-open
 
-**⚠️ ATENÇÃO**: Repositório ainda sendo organizado, apenas para curiosos, zero garantias.
 # 🚨 REPOSITÓRIO MOVIDO! 🚨
 
 <div align="center">
